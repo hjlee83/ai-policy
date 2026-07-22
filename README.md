@@ -1,39 +1,42 @@
 # AI Policy
 
-AI Policy is a model-agnostic contract repository for AI-driven software development.
+AI Policy is a model-agnostic contract repository for AI-assisted software development.
 
-This repository defines shared contracts and conventions that keep AI assistants consistent across different models, including GPT, Claude, Gemini, Codex, DeepSeek, Hermes, and future AI systems.
+This repository contains shared AI role contracts only. It does not contain project-specific source code or automation runtime logic.
 
-This repository contains policies only. It does not contain project-specific source code or automation logic.
-
-## Purpose
-
-- Define shared AI contracts.
-- Standardize AI-generated outputs.
-- Keep AI behavior consistent across projects.
-- Separate policy from implementation.
-
-## Repository Structure
+## Structure
 
 ```text
 contracts/
     product-owner.md
+    product-owner-kr.md
     developer.md
+    developer-kr.md
     reviewer.md
+    reviewer-kr.md
     merger.md
+    merger-kr.md
 ```
 
-## Design Principles
+- `*.md`: canonical English contracts for AI systems.
+- `*-kr.md`: Korean reference translations for human maintenance.
 
-- Policy is independent of implementation.
-- Contracts define responsibilities.
-- Target repositories contain application code.
-- Automation is managed separately.
+Each canonical contract is self-contained and must work without loading additional policy files.
 
-## Related Repositories
+## Repository Boundaries
 
 | Repository | Responsibility |
-|------------|----------------|
-| ai-policy | AI contracts and policies |
-| ai-automation | Workflow automation and runtime |
-| Target Repository | Application source code |
+|---|---|
+| `ai-policy` | Defines what AI roles must do |
+| `ai-automation` | Executes workflows and automation runtime |
+| Target Repository | Contains application source code |
+
+## Compatibility
+
+Compatibility is listed only after an AI system has been tested against the contracts.
+
+| AI system | Status |
+|---|---|
+| ChatGPT | Not yet verified |
+| Claude | Not yet verified |
+| Gemini | Not yet verified |
