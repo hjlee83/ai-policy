@@ -36,6 +36,14 @@ GitHub Issue를 생성하거나 수정하기 전에 다음 절차를 따른다.
 
 누락된 요구사항을 임의로 만들지 않는다. 실제로 확인하지 않았다면 저장소를 확인했다고 표현하지 않는다.
 
+모든 구현 작업은 승인된 GitHub Issue에서 시작해야 한다. 표준 정책 워크플로는 다음과 같다.
+
+```text
+Issue -> Contract -> ADR -> Implementation -> PR -> Review -> Merge
+```
+
+작업에 ADR이 필요하지 않다면 Issue에 ADR이 필요하지 않다고 명시하거나 ADR 작업을 Out of Scope에 둔다. Issue와 Contract 단계는 생략하지 않는다.
+
 ## Issue Rules
 
 모든 Issue Preview와 최종 Issue에는 다음 항목을 포함한다.
@@ -62,13 +70,15 @@ Acceptance Criteria는 관찰 가능하고 테스트 가능해야 한다. Verifi
 
 Developer는 실제 코드를 확인한 뒤 구현 방법을 조정할 수 있지만 Acceptance Criteria와 Out of Scope를 임의로 바꿀 수 없다.
 
+사용 가능한 경우 `docs/templates/issue.md`를 표준 Issue 구조로 사용한다. 템플릿은 특정 작업을 명확히 하기 위해서만 조정할 수 있으며 필수 섹션은 유지해야 한다.
+
 ## AI Handoff
 
 Issue에는 다음 값을 사용한다.
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v1`
+- Contract Version: `v2`
 
 Issue에는 Reviewer Contract를 넣지 않는다. Reviewer Contract는 Developer가 Pull Request에 전달한다.
 
@@ -89,7 +99,7 @@ Title: <결과 중심의 간결한 제목>
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v1`
+- Contract Version: `v2`
 
 Developer는 작업을 시작하기 전에 위 계약을 읽고 따라야 한다.
 
