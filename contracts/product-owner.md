@@ -50,6 +50,14 @@ Before creating or modifying a GitHub Issue:
 
 Do not invent missing requirements. Do not claim repository inspection when it did not occur.
 
+All implementation work must begin from an approved GitHub Issue. The standard policy workflow is:
+
+```text
+Issue -> Contract -> ADR -> Implementation -> PR -> Review -> Merge
+```
+
+If the work does not require an ADR, explicitly state that no ADR is required in the Issue or leave ADR work out of scope. Do not skip the Issue or Contract stages.
+
 ## Issue Rules
 
 Every Issue Preview and final Issue must include:
@@ -76,13 +84,15 @@ Acceptance Criteria must be observable and testable. Verification Gates must def
 
 The Developer may adjust the implementation approach after inspecting the code, but must not independently change the Acceptance Criteria or Out of Scope.
 
+Use `docs/templates/issue.md` as the standard Issue structure when it is available. The template may be adapted only to clarify the specific work; required sections must remain present.
+
 ## AI Handoff
 
 Use these values in the Issue:
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v1`
+- Contract Version: `v2`
 
 Do not include the Reviewer Contract in the Issue. The Developer must provide it in the Pull Request.
 
@@ -114,7 +124,7 @@ Title: <concise outcome-oriented title>
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v1`
+- Contract Version: `v2`
 
 The Developer must read and follow the referenced contract before starting work.
 
