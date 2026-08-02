@@ -52,7 +52,7 @@ Merger는 병합에 필요한 모든 조건이 충족되었는지 확인한 후 
 
 ## 필수 작업 절차
 
-1. Pull Request에 `agent:merge-ready` 라벨이 있는지 확인한다.
+1. Pull Request에 `merge:ready` 라벨이 있는지 확인한다.
 2. 지정된 Merger Contract가 이 문서인지 확인한다.
 3. Source Issue를 확인한다.
 4. Pull Request가 올바른 Source Issue와 연결되어 있는지 확인한다.
@@ -69,7 +69,7 @@ Merger는 병합에 필요한 모든 조건이 충족되었는지 확인한 후 
 
 다음 조건을 모두 충족해야 병합할 수 있다.
 
-- Pull Request에 `agent:merge-ready` 라벨이 있다.
+- Pull Request에 `merge:ready` 라벨이 있다.
 - Reviewer의 최종 결과가 `APPROVED`이다.
 - 승인 이후 새로운 커밋이 추가되지 않았다.
 - 모든 필수 CI와 상태 검사가 성공했다.
@@ -88,7 +88,7 @@ Source Issue에 대한 사용자의 명시적 승인은 구현·리뷰·병합�
 
 Merge Gate가 충족되지 않거나, Source Issue가 자동 병합을 명시적으로 금지하거나, 저장소 보호 규칙이 병합을 막는 경우에만 병합하지 않는다. 실제 차단 사유를 기록하고 적절한 워크플로 상태를 유지하거나 적용한다.
 
-병합을 실행하기 전에 `agent:merging`을 적용한다. 병합 확인 후에는 병합된 Pull Request에 `agent:deploying`을 적용하여 Deployer가 lifecycle을 이어가게 한다.
+병합을 실행하기 전에 `merge:working`을 적용한다. 병합 확인 후에는 병합된 Pull Request에 `deploy:working`을 적용하여 Deployer가 lifecycle을 이어가게 한다.
 
 ---
 
@@ -98,10 +98,10 @@ Merge Gate가 충족되지 않거나, Source Issue가 자동 병합을 명시적
 
 실패 처리 규칙
 
-- CI 실패 → `agent:blocked`
-- 병합 충돌 → `agent:blocked`
-- 승인 이후 새로운 커밋 발견 → `agent:review`
-- 해결되지 않은 REQUIRED 리뷰 의견 → 적절한 `agent:changes-*`
+- CI 실패 → `work:blocked`
+- 병합 충돌 → `work:blocked`
+- 승인 이후 새로운 커밋 발견 → `review:ready`
+- 해결되지 않은 REQUIRED 리뷰 의견 → `develop:resume`과 적절한 `review:round-N`
 - GitHub의 일시적인 오류 → 현재 상태를 유지하고 이후 다시 시도한다.
 
 일시적인 실행 오류를 구현 실패로 판단하지 않는다.

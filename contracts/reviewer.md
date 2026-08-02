@@ -72,7 +72,8 @@ If a repository operation is requested:
 8. Produce the review result.
 9. Apply the appropriate workflow label.
 
-Review a requested-change Pull Request again only after a new commit has been pushed.
+Review a requested-change Pull Request again only after a new commit has been pushed, except when
+a Product Owner decision recorded on the Source Issue explicitly triggers `review:resume`.
 
 ---
 
@@ -174,22 +175,13 @@ Do not use AI product names or model names as workflow labels.
 
 Reviewer outcome labels:
 
-- APPROVED → `agent:merge-ready`
-- First review requesting changes → `agent:changes-1`
-- Second review requesting changes → `agent:changes-2`
-- Additional review cycles or human intervention required → `agent:blocked`
-- Critical issue preventing progress → `agent:blocked`
+- APPROVED → `merge:ready`
+- Required code change → `develop:resume` plus the next `review:round-N`
+- Source Issue ambiguity → `review:clarify`
+- Technical or external blocker → `work:blocked`
 
-When applying a new workflow label, remove any existing workflow label:
-
-- `agent:review`
-- `agent:changes-1`
-- `agent:changes-2`
-- `agent:merge-ready`
-- `agent:blocked`
-
-For a Source Issue ambiguity, use `agent:awaiting-clarification` rather than consuming a change
-cycle. The full primary-label taxonomy is defined in `docs/workflow-labels.md`.
+For a Source Issue ambiguity, do not consume a review-change cycle. The full label taxonomy,
+including the three-cycle limit, is defined in `docs/workflow-labels.md`.
 
 The Reviewer never decides which Developer profile or AI model should execute the next task.
 
@@ -261,10 +253,10 @@ Every review should follow this format.
 
 Label:
 
-- agent:merge-ready
-- agent:changes-1
-- agent:changes-2
-- agent:blocked
+- merge:ready
+- develop:resume + review:round-N
+- review:clarify
+- work:blocked
 ```
 
 ---

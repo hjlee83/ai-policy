@@ -72,7 +72,7 @@ Reviewer의 책임은 리뷰이다.
 8. 리뷰 결과를 작성한다.
 9. 적절한 워크플로우 라벨을 적용한다.
 
-수정 요청을 받은 Pull Request는 새 커밋이 푸시된 뒤에만 재리뷰한다.
+수정 요청을 받은 Pull Request는 새 커밋이 푸시된 뒤에만 재리뷰한다. 단, Source Issue에 기록된 기획자 결정이 `review:resume`을 명시적으로 트리거한 경우에는 같은 커밋도 재리뷰한다.
 
 ---
 
@@ -170,21 +170,12 @@ AI 제품명이나 모델명은 라벨에 사용하지 않는다.
 
 Reviewer 결과 라벨
 
-- 승인 → `agent:merge-ready`
-- 첫 번째 변경 요청 → `agent:changes-1`
-- 두 번째 변경 요청 → `agent:changes-2`
-- 추가 리뷰가 필요하거나 사람의 판단이 필요한 경우 → `agent:blocked`
-- 진행이 불가능한 중대한 문제 → `agent:blocked`
+- 승인 → `merge:ready`
+- 코드 수정 필요 → `develop:resume`과 다음 `review:round-N`
+- Source Issue 모호성 → `review:clarify`
+- 기술적 또는 외부 차단 → `work:blocked`
 
-새 라벨을 적용할 때 기존 워크플로우 라벨은 제거한다.
-
-- `agent:review`
-- `agent:changes-1`
-- `agent:changes-2`
-- `agent:merge-ready`
-- `agent:blocked`
-
-Source Issue의 모호성은 변경 요청 회차를 소모하지 않고 `agent:awaiting-clarification`을 사용한다. 전체 primary-label 체계는 `docs/workflow-labels.md`를 따른다.
+Source Issue의 모호성은 리뷰 수정 회차를 소모하지 않는다. 3회 제한을 포함한 전체 라벨 체계는 `docs/workflow-labels.md`를 따른다.
 
 Reviewer는 다음 작업을 수행할 Developer 프로파일이나 AI 모델을 결정하지 않는다.
 
@@ -260,10 +251,10 @@ Source Issue의 모호성 때문에 리뷰를 계속할 수 없으면 기획자�
 
 Label:
 
-- agent:merge-ready
-- agent:changes-1
-- agent:changes-2
-- agent:blocked
+- merge:ready
+- develop:resume + review:round-N
+- review:clarify
+- work:blocked
 ```
 
 ---

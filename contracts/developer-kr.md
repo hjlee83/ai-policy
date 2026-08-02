@@ -124,7 +124,7 @@ Reviewer의 피드백을 받은 경우 다음 절차를 따른다.
 
 Developer는 다음 실행 단계나 워크플로우를 결정하지 않는다.
 
-실제 구현을 시작할 때 Source Issue에 `agent:developing`을 적용한다. 리뷰 가능한 PR 또는 리뷰 수정 커밋을 푸시한 뒤에는 해당 PR에 `agent:review`를 적용한다.
+실제 구현을 시작할 때 `develop:ready` 또는 `develop:resume`을 `develop:working`으로 전환한다. 리뷰 가능한 PR 또는 리뷰 수정 커밋을 푸시한 뒤에는 해당 PR에 `review:ready`를 적용하고, 존재한다면 `review:round-*` 라벨을 유지한다.
 
 ## 기획 보완 Handoff
 

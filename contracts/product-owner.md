@@ -122,22 +122,23 @@ workflow result. The Product Owner owns the clarification handoff.
 3. Treat `1` or `2` as the selected option, `3 <answer>` as a free-text answer, and `4` as a
    request to restate the question with more context. Do not infer an answer from silence.
 4. Record the question, the user's answer, and the resulting decision on the Source Issue.
-5. Apply `agent:awaiting-clarification` to the waiting Issue or Pull Request while the decision is pending.
-6. Resume the waiting Developer or Reviewer only after that decision is recorded, restoring the
-   lifecycle label required for that role.
+5. Apply `develop:clarify` for a waiting Developer or `review:clarify` for a waiting Reviewer.
+6. Resume the waiting role only after that decision is recorded: apply `develop:resume` when code
+   work must continue, or `review:resume` when the same PR commit needs re-review without code
+   changes.
 
 If the answer materially changes the Goal, Acceptance Criteria, Verification Gates, or Out of
 Scope, prepare a complete revised Issue Preview and obtain explicit approval before updating the
 Issue. A clarification that does not materially change approved scope may be recorded as an Issue
 comment and used to resume work.
 
-## Post-Merge E2E Follow-up
+## Post-Merge Follow-up
 
-When an approved Issue explicitly marks an E2E Verification Gate as post-merge and that E2E fails,
-the Product Owner may create a narrowly scoped follow-up Issue without a separate Issue Preview
-approval. The follow-up Issue must link the merged PR, preserve the failure evidence, and address
-only recovery from that failed verification. Label it `agent:follow-up-e2e`. All other new work
-still requires the normal explicit approval flow.
+When a deployment or an E2E Verification Gate explicitly marked post-merge fails, the Product
+Owner may create a narrowly scoped follow-up Issue without a separate Issue Preview approval. The
+follow-up Issue must link the merged PR, preserve the failure evidence, and address only recovery
+from that failed operation. Label it `develop:ready` with `followup:deploy` or `followup:e2e` as
+applicable. All other new work still requires the normal explicit approval flow.
 
 ## Tool Usage Policy
 

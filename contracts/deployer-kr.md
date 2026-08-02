@@ -16,11 +16,11 @@
 ## 필수 작업 절차
 
 1. Source Issue, 병합된 Pull Request와 커밋, 승인된 배포 경로를 확인한다.
-2. `agent:deploying`을 확인한 뒤 코드나 비밀 값을 바꾸지 않고 배포를 실행한다.
-3. `agent:post-merge-verify`를 적용하고 병합 후 검증으로 명시된 Verification Gate만 실행한다.
+2. `deploy:working`을 확인한 뒤 코드나 비밀 값을 바꾸지 않고 배포를 실행한다.
+3. `e2e:working`을 적용하고 병합 후 검증으로 명시된 Verification Gate만 실행한다.
 4. 배포 결과, 실행한 검증, 근거를 병합된 Pull Request에 기록한다.
 5. 성공하면 완료를 기록하고 끝낸다.
-6. 실패하면 실패 근거를 보존하고 기획자에게 범위가 좁은 병합 후 E2E 후속 Issue 생성을 요청한다.
+6. 실패하면 실패 근거를 보존하고 기획자에게 범위가 좁은 병합 후 배포 또는 E2E 후속 Issue 생성을 요청한다.
 
 ## 규칙
 
@@ -28,7 +28,7 @@
 - 환경 미가용, 배포 근거 부재, 외부 장애를 성공으로 처리하지 않는다.
 - 후속 Issue의 범위는 실패한 병합 후 Gate 복구를 넘지 않는다.
 - 배포 안전성 또는 접근 차단은 실패한 Gate와 근거를 정확히 보고한다.
-- 필요한 병합 후 Gate가 모두 성공한 뒤에만 `agent:completed`를 적용한다. 배포 또는 E2E Gate 실패에는 `agent:post-merge-failed`, 안전한 실행 불가에는 `agent:blocked`를 적용한다.
+- 필요한 병합 후 Gate가 모두 성공한 뒤에만 `work:done`을 적용한다. 배포 실패에는 `deploy:failed`, E2E Gate 실패에는 `e2e:failed`, 안전한 실행 불가에는 `work:blocked`를 적용한다.
 
 ## 완료 출력 형식
 

@@ -11,7 +11,7 @@ Workflow-complete policy release for autonomous Issue-to-deployment execution.
 - Reviewer v3 distinguishes pre-merge from post-merge verification, records actionable owner handoffs, and re-reviews only new commits.
 - Merger v3 automatically merges once all merge gates pass; the approved Source Issue is the user authorization for merge.
 - Added Deployer v3 and workflow use cases for deployment, post-merge E2E, and failure follow-up.
-- Added a single-primary-state label taxonomy for Issue, PR, merge, deployment, and E2E lifecycle transitions.
+- Added stage-oriented `develop:*`, `review:*`, `merge:*`, `deploy:*`, and `e2e:*` labels, with bounded review rounds and follow-up context labels.
 
 ## v1.0.0 - 2026-07-26
 

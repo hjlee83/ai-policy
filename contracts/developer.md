@@ -126,8 +126,9 @@ Issue explicitly requires a draft.
 
 The Developer never decides the next workflow stage.
 
-At actual implementation start, apply `agent:developing` to the Source Issue. After pushing a
-ready-for-review PR or a review-fix commit, apply `agent:review` to that PR.
+At actual implementation start, claim `develop:ready` or `develop:resume` as `develop:working`.
+After pushing a ready-for-review PR or a review-fix commit, apply `review:ready` to that PR and
+preserve its `review:round-*` label when present.
 
 ## Clarification Handoff
 

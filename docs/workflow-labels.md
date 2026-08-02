@@ -1,48 +1,70 @@
 # Workflow Labels v3
 
-Workflow labels are durable, machine-readable lifecycle state. Each active Issue or Pull Request
-has exactly one primary `agent:*` workflow label. A label is replaced, never accumulated with a
-previous primary state. Repository teams may add non-workflow labels separately.
+Workflow labels are durable, machine-readable lifecycle state. The active work item has one current
+stage label. `review:round-*` and `followup:*` are the only supplementary labels and may coexist
+with that stage label. Labels describe the present action, not history; GitHub comments and the
+runtime state store the detailed history.
 
-## Issue states
+## Labels
 
-| Label | Meaning | Next owner or transition |
+| Scope | Label | Meaning |
 |---|---|---|
-| `agent:ready-for-dev` | Approved Issue is ready to start. | Developer → `agent:developing` |
-| `agent:developing` | Developer is implementing the approved scope. | PR created, clarification, or blocked |
-| `agent:awaiting-clarification` | A Product Owner question needs a user decision. | User decision → prior waiting role |
-| `agent:follow-up-e2e` | Automatically created recovery Issue for a failed post-merge E2E gate. | Developer → `agent:developing` |
-| `agent:blocked` | A technical, access, or external blocker prevents safe progress. | Explicit recovery action |
+| Issue | `develop:ready` | Approved new work is ready for a Developer. |
+| Issue or PR | `develop:working` | A Developer is actively working. |
+| Issue | `develop:clarify` | Development is paused for a Product Owner/user decision. |
+| Issue or PR | `develop:resume` | A Developer must resume an existing worktree or PR branch. |
+| PR | `review:ready` | A PR commit is queued for review. |
+| PR | `review:working` | A Reviewer is actively reviewing. |
+| PR | `review:clarify` | Review is paused for a Product Owner/user decision. |
+| PR | `review:resume` | A recorded decision requires re-review of the same commit. |
+| PR | `review:round-1`, `review:round-2`, `review:round-3` | Supplementary count of completed review-fix cycles. |
+| PR | `merge:ready` | All pre-merge gates passed. |
+| PR | `merge:working` | Automatic merge is executing or being confirmed. |
+| PR | `deploy:working` | The merged change is deploying. |
+| PR | `deploy:failed` | Deployment failed. |
+| PR | `e2e:working` | Post-merge E2E verification is running. |
+| PR | `e2e:failed` | Post-merge E2E verification failed. |
+| Issue | `followup:deploy` | Supplementary origin for an automatically created deployment-recovery Issue. |
+| Issue | `followup:e2e` | Supplementary origin for an automatically created E2E-recovery Issue. |
+| Issue or PR | `work:blocked` | A technical, access, or external blocker prevents safe progress. |
+| PR | `work:done` | Deployment and all required post-merge E2E gates succeeded. |
 
-## Pull Request states
+## Trigger and Claim Rules
 
-| Label | Meaning | Next owner or transition |
-|---|---|---|
-| `agent:review` | A new PR commit is queued for review. | Reviewer |
-| `agent:changes-1` | First review cycle has REQUIRED implementation fixes. | Developer |
-| `agent:changes-2` | Second review cycle has REQUIRED implementation fixes. | Developer |
-| `agent:awaiting-clarification` | Review is waiting for a Product Owner/user decision. | Product Owner |
-| `agent:merge-ready` | All pre-merge gates passed. | Merger |
-| `agent:merging` | Merge is being executed or confirmed. | Merger → post-merge verification |
-| `agent:deploying` | Merged change is being deployed. | Deployer |
-| `agent:post-merge-verify` | Deployment is complete and post-merge gates are running. | Deployer |
-| `agent:completed` | Deployment and all required post-merge gates succeeded. | Terminal |
-| `agent:post-merge-failed` | Deployment or a post-merge E2E gate failed. | Product Owner → `agent:follow-up-e2e` Issue |
-| `agent:blocked` | A safe merge, deploy, or verification action cannot proceed. | Explicit recovery action |
+- A new Developer worker starts only from an Issue labelled `develop:ready`.
+- A resume Developer worker starts only from `develop:resume`. If the target is a PR, it resumes
+  that PR's existing branch; it never creates another PR for the Source Issue.
+- A Reviewer worker starts only from `review:ready` or `review:resume` on a PR.
+- A worker atomically claims its target by replacing its trigger label with `develop:working` or
+  `review:working`. It preserves any `review:round-*` supplementary label.
+- The runtime must also enforce one active worker lease per Source Issue and check for a linked open
+  PR before creating a new Developer worktree. Labels alone are not a concurrency lock.
 
 ## Transition Rules
 
-- A Developer moves an approved Issue to `agent:developing` at actual work start, and creates a
-  PR in `agent:review` only after its ready-for-review PR is pushed.
-- A clarification pauses the waiting Issue or PR in `agent:awaiting-clarification`; it does not
-  consume a review-change cycle or become `agent:blocked`.
-- A Developer resolving `agent:changes-*` pushes a new commit and changes the PR to
-  `agent:review`; the reviewer never re-reviews the old commit.
-- A Reviewer can set only `agent:changes-1`, `agent:changes-2`, `agent:awaiting-clarification`,
-  `agent:merge-ready`, or `agent:blocked`.
-- A Merger changes `agent:merge-ready` to `agent:merging`, then to `agent:deploying` after merge
-  confirmation. It never changes a PR directly to `agent:completed`.
-- A Deployer changes `agent:deploying` to `agent:post-merge-verify`, then to `agent:completed`,
-  `agent:post-merge-failed`, or `agent:blocked` based on actual evidence.
-- A post-merge failure creates a new Issue labelled `agent:follow-up-e2e`; it does not return the
-  merged PR to an earlier development or review label.
+```text
+Issue develop:ready
+  -> develop:working
+  -> PR review:ready
+  -> PR review:working
+  -> PR merge:ready
+  -> PR merge:working
+  -> PR deploy:working
+  -> PR e2e:working
+  -> PR work:done
+```
+
+- Developer ambiguity: `develop:working -> develop:clarify -> develop:resume -> develop:working`.
+- Reviewer ambiguity without code change:
+  `review:working -> review:clarify -> review:resume -> review:working`.
+- Reviewer-required or clarification-required code change:
+  `review:working -> develop:resume + review:round-N -> develop:working + review:round-N
+  -> review:ready + review:round-N`.
+- A reviewer increments the review-round label only when its decision requires a code change. It
+  removes the previous round label before applying the next one.
+- At `review:round-3`, another required code change becomes
+  `review:clarify + review:round-3`; the Product Owner asks the user whether to permit another
+  correction cycle, revise the plan, or stop. Automatic code-change looping stops there.
+- A deployment failure becomes `deploy:failed`; an E2E failure becomes `e2e:failed`. The Product
+  Owner creates a new `develop:ready` Issue with respectively `followup:deploy` or `followup:e2e`.
+  The merged PR never returns to a development or review state.

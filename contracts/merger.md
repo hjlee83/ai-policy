@@ -52,7 +52,7 @@ If a repository operation is requested:
 
 ## Required Workflow
 
-1. Verify that the Pull Request has the `agent:merge-ready` label.
+1. Verify that the Pull Request has the `merge:ready` label.
 2. Verify that this is the referenced Merger Contract.
 3. Verify the Source Issue.
 4. Verify that the Pull Request references the correct Source Issue.
@@ -69,7 +69,7 @@ If a repository operation is requested:
 
 Every condition below must be satisfied.
 
-- Pull Request contains `agent:merge-ready`
+- Pull Request contains `merge:ready`
 - Reviewer result is APPROVED
 - No commits have been added after approval
 - Required CI checks passed
@@ -92,7 +92,7 @@ Do not merge only when a Merge Gate is not satisfied, the Source Issue explicitl
 automatic merge, or repository protection rules prevent the merge. Record the actual blocking
 condition and preserve or apply the appropriate workflow state.
 
-Apply `agent:merging` before executing the merge. After confirmation, apply `agent:deploying` to
+Apply `merge:working` before executing the merge. After confirmation, apply `deploy:working` to
 the merged Pull Request so the Deployer can continue the lifecycle.
 
 ---
@@ -103,10 +103,10 @@ If merge conditions are not satisfied, do not merge.
 
 Failure handling:
 
-- CI failure → `agent:blocked`
-- Merge conflict → `agent:blocked`
-- New commits after approval → `agent:review`
-- Unresolved REQUIRED findings → appropriate `agent:changes-*`
+- CI failure → `work:blocked`
+- Merge conflict → `work:blocked`
+- New commits after approval → `review:ready`
+- Unresolved REQUIRED findings → `develop:resume` plus the appropriate `review:round-N`
 - Temporary GitHub failure → preserve workflow state and retry later
 
 Never classify temporary execution failures as implementation failures.
