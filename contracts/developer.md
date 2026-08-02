@@ -126,6 +126,9 @@ Issue explicitly requires a draft.
 
 The Developer never decides the next workflow stage.
 
+At actual implementation start, apply `agent:developing` to the Source Issue. After pushing a
+ready-for-review PR or a review-fix commit, apply `agent:review` to that PR.
+
 ## Clarification Handoff
 
 If work cannot continue because the Issue is ambiguous, do not guess or ask the user directly.

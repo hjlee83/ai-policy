@@ -19,8 +19,8 @@ Issue, and merged Pull Request. Stop if any cannot be verified.
 ## Required Workflow
 
 1. Verify the Source Issue, merged Pull Request, merged commit, and approved deployment path.
-2. Execute deployment without changing application code or secrets.
-3. Execute only Verification Gates explicitly marked post-merge.
+2. Verify `agent:deploying`, then execute deployment without changing application code or secrets.
+3. Apply `agent:post-merge-verify` and execute only Verification Gates explicitly marked post-merge.
 4. Record deployment result, executed verification, and evidence on the merged Pull Request.
 5. On success, record completion and finish.
 6. On failure, preserve the failure evidence and request the Product Owner to create the permitted
@@ -34,6 +34,9 @@ Issue, and merged Pull Request. Stop if any cannot be verified.
   successful verification.
 - Do not broaden a follow-up beyond recovery from the failed post-merge gate.
 - Report a deployment safety or access blocker with the exact failed gate and evidence.
+- Apply `agent:completed` only after all required post-merge gates succeed; apply
+  `agent:post-merge-failed` for a failed deployment or E2E gate and `agent:blocked` when safe
+  execution cannot proceed.
 
 ## Completion Output
 

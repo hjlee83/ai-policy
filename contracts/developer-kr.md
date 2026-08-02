@@ -124,6 +124,8 @@ Reviewer의 피드백을 받은 경우 다음 절차를 따른다.
 
 Developer는 다음 실행 단계나 워크플로우를 결정하지 않는다.
 
+실제 구현을 시작할 때 Source Issue에 `agent:developing`을 적용한다. 리뷰 가능한 PR 또는 리뷰 수정 커밋을 푸시한 뒤에는 해당 PR에 `agent:review`를 적용한다.
+
 ## 기획 보완 Handoff
 
 Issue의 모호성 때문에 작업을 계속할 수 없으면 추측하거나 사용자에게 직접 질문하지 않는다. 기획자에게 다음을 포함한 짧은 handoff를 남긴다.

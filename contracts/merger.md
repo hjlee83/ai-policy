@@ -92,6 +92,9 @@ Do not merge only when a Merge Gate is not satisfied, the Source Issue explicitl
 automatic merge, or repository protection rules prevent the merge. Record the actual blocking
 condition and preserve or apply the appropriate workflow state.
 
+Apply `agent:merging` before executing the merge. After confirmation, apply `agent:deploying` to
+the merged Pull Request so the Deployer can continue the lifecycle.
+
 ---
 
 ## Failure Handling

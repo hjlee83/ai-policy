@@ -17,18 +17,18 @@ Slack is the concise user-decision surface; GitHub Issues and Pull Requests are 
 | Step | Expected outcome |
 |---|---|
 | User requests work | Product Owner prepares an Issue Preview and asks for explicit approval. |
-| User approves | Product Owner creates the approved Source Issue. |
-| Developer completes implementation | A non-draft PR with AI Review Handoff and verification evidence is created. |
-| Reviewer approves | Full review is recorded; exactly one `agent:merge-ready` state exists. |
-| Merger runs | The PR is automatically merged when every Merge Gate passes. |
-| Deployer runs | Deployment and post-merge gates are recorded on the merged PR. |
+| User approves | Product Owner creates the approved Source Issue as `agent:ready-for-dev`. |
+| Developer completes implementation | The Issue is `agent:developing`; a non-draft PR is created as `agent:review`. |
+| Reviewer approves | Full review is recorded; the PR is `agent:merge-ready`. |
+| Merger runs | The PR becomes `agent:merging`, then `agent:deploying` after confirmed merge. |
+| Deployer runs | The PR becomes `agent:post-merge-verify`, then `agent:completed` when post-merge gates pass. |
 
 ## UC-02: Clarification discovered by any role
 
 | Step | Expected outcome |
 |---|---|
 | Product Owner, Developer, or Reviewer finds ambiguity | Work pauses and a Product Owner handoff contains the evidence and safe options. |
-| Product Owner asks | The user receives a concise question with options `1`, `2`, `3`, and `4`. |
+| Product Owner asks | The waiting work item is `agent:awaiting-clarification`; the user receives a concise question with options `1`, `2`, `3`, and `4`. |
 | User replies | `1`/`2` select, `3 <text>` supplies free text, and `4` repeats the question with more context. |
 | Decision is known | Question, answer, and decision are recorded on the Source Issue. |
 | Scope unchanged | The waiting role resumes from the recorded decision. |
@@ -39,7 +39,7 @@ Slack is the concise user-decision surface; GitHub Issues and Pull Requests are 
 | Step | Expected outcome |
 |---|---|
 | Reviewer finds an implementation defect | A REQUIRED finding is recorded on the PR and the state is `agent:changes-1` or `agent:changes-2`. |
-| Developer handles it | The same branch and PR receive only the required fix, a disposition comment, and affected verification evidence. |
+| Developer handles it | The same branch and PR receive only the required fix, a disposition comment, affected verification evidence, and return to `agent:review`. |
 | New commit is pushed | The reviewer starts exactly one re-review for that new commit. |
 | Reviewer approves | The merger, not the reviewer, automatically performs the merge. |
 
@@ -48,8 +48,8 @@ Slack is the concise user-decision surface; GitHub Issues and Pull Requests are 
 | Step | Expected outcome |
 |---|---|
 | Pre-merge gates pass | Reviewer marks the PR merge-ready even when a gate explicitly marked post-merge has not run. |
-| Deployment E2E fails | Deployer records the failed gate and evidence on the merged PR. |
-| Follow-up | Product Owner automatically creates a narrowly scoped follow-up Issue linked to the merged PR. |
+| Deployment E2E fails | Deployer records the failed gate and evidence on the merged PR as `agent:post-merge-failed`. |
+| Follow-up | Product Owner automatically creates a narrowly scoped `agent:follow-up-e2e` Issue linked to the merged PR. |
 | Recovery | The follow-up follows UC-01; the original PR remains merged and unchanged. |
 
 ## UC-05: Duplicate or delayed delivery events

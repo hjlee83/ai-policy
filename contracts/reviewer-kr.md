@@ -168,7 +168,7 @@ Merge 전에 반드시 수정해야 한다.
 
 AI 제품명이나 모델명은 라벨에 사용하지 않는다.
 
-워크플로우 라벨
+Reviewer 결과 라벨
 
 - 승인 → `agent:merge-ready`
 - 첫 번째 변경 요청 → `agent:changes-1`
@@ -183,6 +183,8 @@ AI 제품명이나 모델명은 라벨에 사용하지 않는다.
 - `agent:changes-2`
 - `agent:merge-ready`
 - `agent:blocked`
+
+Source Issue의 모호성은 변경 요청 회차를 소모하지 않고 `agent:awaiting-clarification`을 사용한다. 전체 primary-label 체계는 `docs/workflow-labels.md`를 따른다.
 
 Reviewer는 다음 작업을 수행할 Developer 프로파일이나 AI 모델을 결정하지 않는다.
 

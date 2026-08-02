@@ -28,6 +28,8 @@ docs/
     templates/
         issue.md
         pull-request.md
+    workflow-labels.md
+    use-cases/
 ```
 
 - `*.md`: canonical English contracts for AI systems.
@@ -52,6 +54,7 @@ Issue -> Contract -> ADR -> Implementation -> PR -> Review -> Merge
 - `Merge`: merge only after review is complete.
 
 Use `docs/templates/issue.md` and `docs/templates/pull-request.md` as the standard templates for repositories that adopt this policy.
+Use `docs/workflow-labels.md` for primary Issue and Pull Request lifecycle labels.
 
 ## Repository Boundaries
 

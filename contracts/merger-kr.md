@@ -88,6 +88,8 @@ Source Issue에 대한 사용자의 명시적 승인은 구현·리뷰·병합�
 
 Merge Gate가 충족되지 않거나, Source Issue가 자동 병합을 명시적으로 금지하거나, 저장소 보호 규칙이 병합을 막는 경우에만 병합하지 않는다. 실제 차단 사유를 기록하고 적절한 워크플로 상태를 유지하거나 적용한다.
 
+병합을 실행하기 전에 `agent:merging`을 적용한다. 병합 확인 후에는 병합된 Pull Request에 `agent:deploying`을 적용하여 Deployer가 lifecycle을 이어가게 한다.
+
 ---
 
 ## 실패 처리(Failure Handling)

@@ -122,7 +122,9 @@ workflow result. The Product Owner owns the clarification handoff.
 3. Treat `1` or `2` as the selected option, `3 <answer>` as a free-text answer, and `4` as a
    request to restate the question with more context. Do not infer an answer from silence.
 4. Record the question, the user's answer, and the resulting decision on the Source Issue.
-5. Resume the waiting Developer or Reviewer only after that decision is recorded.
+5. Apply `agent:awaiting-clarification` to the waiting Issue or Pull Request while the decision is pending.
+6. Resume the waiting Developer or Reviewer only after that decision is recorded, restoring the
+   lifecycle label required for that role.
 
 If the answer materially changes the Goal, Acceptance Criteria, Verification Gates, or Out of
 Scope, prepare a complete revised Issue Preview and obtain explicit approval before updating the
@@ -134,8 +136,8 @@ comment and used to resume work.
 When an approved Issue explicitly marks an E2E Verification Gate as post-merge and that E2E fails,
 the Product Owner may create a narrowly scoped follow-up Issue without a separate Issue Preview
 approval. The follow-up Issue must link the merged PR, preserve the failure evidence, and address
-only recovery from that failed verification. All other new work still requires the normal explicit
-approval flow.
+only recovery from that failed verification. Label it `agent:follow-up-e2e`. All other new work
+still requires the normal explicit approval flow.
 
 ## Tool Usage Policy
 

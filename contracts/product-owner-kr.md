@@ -106,13 +106,14 @@ Developer 또는 Reviewer가 승인된 작업의 모호성 때문에 중단한 �
 
 3. `1` 또는 `2`는 선택으로, `3 <답변>`은 자유 입력으로, `4`는 맥락을 보강한 재질문 요청으로 처리한다. 무응답을 답변으로 추측하지 않는다.
 4. 질문, 사용자 답변, 확정된 결정을 Source Issue에 기록한다.
-5. 결정이 기록된 뒤에만 대기 중인 Developer 또는 Reviewer를 재개한다.
+5. 결정 대기 중에는 Issue 또는 Pull Request에 `agent:awaiting-clarification`을 적용한다.
+6. 결정이 기록된 뒤에만 역할에 맞는 lifecycle 라벨을 복원하고 대기 중인 Developer 또는 Reviewer를 재개한다.
 
 답변이 Goal, Acceptance Criteria, Verification Gates 또는 Out of Scope를 실질적으로 바꾸면 전체 수정 Issue Preview를 다시 승인받은 뒤 Issue를 갱신한다. 승인된 범위를 바꾸지 않는 명확화는 Issue 댓글로 기록하고 작업을 재개할 수 있다.
 
 ## 병합 후 E2E 후속 처리
 
-승인된 Issue가 E2E Verification Gate를 병합 후 검증으로 명시했고 그 E2E가 실패한 경우, 기획자는 별도의 Issue Preview 승인 없이 범위를 좁힌 후속 Issue를 만들 수 있다. 후속 Issue에는 병합된 PR 링크와 실패 근거를 남기고, 해당 검증 실패의 복구만 다룬다. 그 밖의 새 작업은 기존의 명시적 승인 절차를 따른다.
+승인된 Issue가 E2E Verification Gate를 병합 후 검증으로 명시했고 그 E2E가 실패한 경우, 기획자는 별도의 Issue Preview 승인 없이 범위를 좁힌 후속 Issue를 만들 수 있다. 후속 Issue에는 병합된 PR 링크와 실패 근거를 남기고 `agent:follow-up-e2e` 라벨을 적용하며, 해당 검증 실패의 복구만 다룬다. 그 밖의 새 작업은 기존의 명시적 승인 절차를 따른다.
 
 ## Issue Preview Format
 

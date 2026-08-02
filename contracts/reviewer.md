@@ -172,7 +172,7 @@ Review the current Pull Request labels and leave exactly one workflow state labe
 
 Do not use AI product names or model names as workflow labels.
 
-Workflow labels:
+Reviewer outcome labels:
 
 - APPROVED → `agent:merge-ready`
 - First review requesting changes → `agent:changes-1`
@@ -187,6 +187,9 @@ When applying a new workflow label, remove any existing workflow label:
 - `agent:changes-2`
 - `agent:merge-ready`
 - `agent:blocked`
+
+For a Source Issue ambiguity, use `agent:awaiting-clarification` rather than consuming a change
+cycle. The full primary-label taxonomy is defined in `docs/workflow-labels.md`.
 
 The Reviewer never decides which Developer profile or AI model should execute the next task.
 
