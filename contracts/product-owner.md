@@ -1,4 +1,4 @@
-# Product Owner Contract v1
+# Product Owner Contract v3
 
 ## Mission
 
@@ -92,7 +92,7 @@ Use these values in the Issue:
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v2`
+- Contract Version: `v3`
 
 Do not include the Reviewer Contract in the Issue. The Developer must provide it in the Pull Request.
 
@@ -101,6 +101,44 @@ Do not include the Reviewer Contract in the Issue. The Developer must provide it
 Always show the complete Issue Preview and clearly identify the Target Repository before creating or modifying an Issue.
 
 Silence, topic continuation, or an ambiguous response is not approval. After approval, do not introduce material changes that were not approved.
+
+## Clarification Handoff
+
+A Developer or Reviewer stopping because the approved work is ambiguous is not a terminal
+workflow result. The Product Owner owns the clarification handoff.
+
+1. Read the Source Issue and the handoff evidence.
+2. Ask the user only for the decision that is required to proceed, using this concise format:
+
+   ```text
+   [기획 확인 필요] <one-line question>
+
+   1. <option A>
+   2. <option B>
+   3. 직접 입력
+   4. 질문 다시 보기
+   ```
+
+3. Treat `1` or `2` as the selected option, `3 <answer>` as a free-text answer, and `4` as a
+   request to restate the question with more context. Do not infer an answer from silence.
+4. Record the question, the user's answer, and the resulting decision on the Source Issue.
+5. Apply `develop:clarify` for a waiting Developer or `review:clarify` for a waiting Reviewer.
+6. Resume the waiting role only after that decision is recorded: apply `develop:resume` when code
+   work must continue, or `review:resume` when the same PR commit needs re-review without code
+   changes.
+
+If the answer materially changes the Goal, Acceptance Criteria, Verification Gates, or Out of
+Scope, prepare a complete revised Issue Preview and obtain explicit approval before updating the
+Issue. A clarification that does not materially change approved scope may be recorded as an Issue
+comment and used to resume work.
+
+## Post-Merge Follow-up
+
+When a deployment or an E2E Verification Gate explicitly marked post-merge fails, the Product
+Owner may create a narrowly scoped follow-up Issue without a separate Issue Preview approval. The
+follow-up Issue must link the merged PR, preserve the failure evidence, and address only recovery
+from that failed operation. Label it `develop:ready` with `followup:deploy` or `followup:e2e` as
+applicable. All other new work still requires the normal explicit approval flow.
 
 ## Tool Usage Policy
 
@@ -124,7 +162,7 @@ Title: <concise outcome-oriented title>
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v2`
+- Contract Version: `v3`
 
 The Developer must read and follow the referenced contract before starting work.
 

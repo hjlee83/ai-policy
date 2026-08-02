@@ -6,7 +6,7 @@ This repository contains shared AI role contracts only. It does not contain proj
 
 ## Policy Version
 
-Current stable policy: `v1.0.0`
+Current stable policy: `v3.0.0`
 
 See `CHANGELOG.md` for release notes.
 
@@ -22,10 +22,14 @@ contracts/
     reviewer-kr.md
     merger.md
     merger-kr.md
+    deployer.md
+    deployer-kr.md
 docs/
     templates/
         issue.md
         pull-request.md
+    workflow-labels.md
+    use-cases/
 ```
 
 - `*.md`: canonical English contracts for AI systems.
@@ -50,6 +54,7 @@ Issue -> Contract -> ADR -> Implementation -> PR -> Review -> Merge
 - `Merge`: merge only after review is complete.
 
 Use `docs/templates/issue.md` and `docs/templates/pull-request.md` as the standard templates for repositories that adopt this policy.
+Use `docs/workflow-labels.md` for primary Issue and Pull Request lifecycle labels.
 
 ## Repository Boundaries
 

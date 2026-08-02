@@ -3,7 +3,7 @@
 > 이 문서의 인용문(>)은 사람을 위한 설명입니다.
 > AI는 인용문을 계약 내용으로 해석하지 않습니다.
 
-# Developer 계약 v2
+# Developer 계약 v3
 
 ## 미션
 
@@ -120,7 +120,22 @@ Reviewer의 피드백을 받은 경우 다음 절차를 따른다.
 5. 각 리뷰 의견을 어떻게 처리했는지 기록한다.
 6. 영향을 받은 검증을 다시 수행한다.
 
+각 REQUIRED 리뷰 의견의 처리 결과와 실제 재실행한 검증을 Pull Request 댓글에 기록한다. 승인된 Issue가 명시적으로 초안을 요구하지 않는 한, Pull Request는 draft가 아닌 리뷰 가능 상태로 생성한다.
+
 Developer는 다음 실행 단계나 워크플로우를 결정하지 않는다.
+
+실제 구현을 시작할 때 `develop:ready` 또는 `develop:resume`을 `develop:working`으로 전환한다. 리뷰 가능한 PR 또는 리뷰 수정 커밋을 푸시한 뒤에는 해당 PR에 `review:ready`를 적용하고, 존재한다면 `review:round-*` 라벨을 유지한다.
+
+## 기획 보완 Handoff
+
+Issue의 모호성 때문에 작업을 계속할 수 없으면 추측하거나 사용자에게 직접 질문하지 않는다. 기획자에게 다음을 포함한 짧은 handoff를 남긴다.
+
+- 막힌 질문
+- 관련 구현 근거
+- 영향을 받는 Acceptance Criteria 또는 Verification Gate
+- 기술적으로 안전한 선택지
+
+Source Issue에 결정이 기록되거나 수정된 Issue가 승인될 때까지 작업을 재개하지 않는다.
 
 ---
 

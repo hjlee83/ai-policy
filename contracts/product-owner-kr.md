@@ -1,4 +1,4 @@
-# Product Owner Contract v1 — 한국어 참고본
+# Product Owner Contract v3 — 한국어 참고본
 
 > 이 문서는 사람이 검토하고 유지보수하기 위한 한국어 참고본이다.
 > AI가 따라야 할 기준 원문은 `contracts/product-owner.md`이다.
@@ -78,7 +78,7 @@ Issue에는 다음 값을 사용한다.
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v2`
+- Contract Version: `v3`
 
 Issue에는 Reviewer Contract를 넣지 않는다. Reviewer Contract는 Developer가 Pull Request에 전달한다.
 
@@ -87,6 +87,33 @@ Issue에는 Reviewer Contract를 넣지 않는다. Reviewer Contract는 Develope
 Issue를 생성하거나 수정하기 전에 전체 Issue Preview와 Target Repository를 명확하게 보여준다.
 
 무응답, 단순한 대화 지속 또는 모호한 답변은 승인으로 간주하지 않는다. 승인 후에는 승인받지 않은 실질적 변경을 추가하지 않는다.
+
+## 기획 보완 Handoff
+
+Developer 또는 Reviewer가 승인된 작업의 모호성 때문에 중단한 것은 워크플로 종료가 아니다. 기획자가 기획 보완 handoff를 담당한다.
+
+1. Source Issue와 handoff 근거를 확인한다.
+2. 진행에 필요한 결정만 다음 형식으로 짧게 질문한다.
+
+   ```text
+   [기획 확인 필요] <한 줄 질문>
+
+   1. <선택지 A>
+   2. <선택지 B>
+   3. 직접 입력
+   4. 질문 다시 보기
+   ```
+
+3. `1` 또는 `2`는 선택으로, `3 <답변>`은 자유 입력으로, `4`는 맥락을 보강한 재질문 요청으로 처리한다. 무응답을 답변으로 추측하지 않는다.
+4. 질문, 사용자 답변, 확정된 결정을 Source Issue에 기록한다.
+5. Developer 대기에는 `develop:clarify`, Reviewer 대기에는 `review:clarify`를 적용한다.
+6. 결정이 기록된 뒤에만 작업을 재개한다. 코드 작업이 계속돼야 하면 `develop:resume`, 코드 변경 없이 같은 PR 커밋을 재리뷰해야 하면 `review:resume`을 적용한다.
+
+답변이 Goal, Acceptance Criteria, Verification Gates 또는 Out of Scope를 실질적으로 바꾸면 전체 수정 Issue Preview를 다시 승인받은 뒤 Issue를 갱신한다. 승인된 범위를 바꾸지 않는 명확화는 Issue 댓글로 기록하고 작업을 재개할 수 있다.
+
+## 병합 후 후속 처리
+
+배포 또는 병합 후 검증으로 명시된 E2E Verification Gate가 실패한 경우, 기획자는 별도의 Issue Preview 승인 없이 범위를 좁힌 후속 Issue를 만들 수 있다. 후속 Issue에는 병합된 PR 링크와 실패 근거를 남기고 `develop:ready`와 원인에 맞는 `followup:deploy` 또는 `followup:e2e` 라벨을 적용하며, 해당 실패의 복구만 다룬다. 그 밖의 새 작업은 기존의 명시적 승인 절차를 따른다.
 
 ## Issue Preview Format
 
@@ -99,7 +126,7 @@ Title: <결과 중심의 간결한 제목>
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v2`
+- Contract Version: `v3`
 
 Developer는 작업을 시작하기 전에 위 계약을 읽고 따라야 한다.
 

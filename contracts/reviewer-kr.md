@@ -3,7 +3,7 @@
 > 이 문서의 인용문(>)은 사람을 위한 설명입니다.
 > AI는 인용문을 계약 내용으로 해석하지 않습니다.
 
-# Reviewer 계약 v2
+# Reviewer 계약 v3
 
 ## 미션
 
@@ -72,6 +72,8 @@ Reviewer의 책임은 리뷰이다.
 8. 리뷰 결과를 작성한다.
 9. 적절한 워크플로우 라벨을 적용한다.
 
+수정 요청을 받은 Pull Request는 새 커밋이 푸시된 뒤에만 재리뷰한다. 단, Source Issue에 기록된 기획자 결정이 `review:resume`을 명시적으로 트리거한 경우에는 같은 커밋도 재리뷰한다.
+
 ---
 
 ## 리뷰 규칙
@@ -97,6 +99,10 @@ Reviewer의 책임은 리뷰이다.
 - Verification Gates 충족 여부
 
 추측에 기반한 리뷰 의견을 작성하지 않는다.
+
+전체 리뷰 결과와 모든 REQUIRED 의견을 Pull Request에 남긴다. 리뷰를 계속할 수 없으면 다음 담당자를 명시한다: 구현 수정은 Developer, 승인 범위의 모호성은 Product Owner, 외부 결정은 Human.
+
+Issue에서 병합 후 검증으로 명시한 Verification Gate는 배포 검증이다. 병합 전에 아직 실행되지 않았다는 이유만으로 변경을 요구하거나 병합을 차단하지 않는다. 코드 수준 Acceptance Criteria와 병합 전 검증을 기준으로 리뷰한다.
 
 ---
 
@@ -162,25 +168,29 @@ Merge 전에 반드시 수정해야 한다.
 
 AI 제품명이나 모델명은 라벨에 사용하지 않는다.
 
-워크플로우 라벨
+Reviewer 결과 라벨
 
-- 승인 → `agent:merge-ready`
-- 첫 번째 변경 요청 → `agent:changes-1`
-- 두 번째 변경 요청 → `agent:changes-2`
-- 추가 리뷰가 필요하거나 사람의 판단이 필요한 경우 → `agent:blocked`
-- 진행이 불가능한 중대한 문제 → `agent:blocked`
+- 승인 → `merge:ready`
+- 코드 수정 필요 → `develop:resume`과 다음 `review:round-N`
+- Source Issue 모호성 → `review:clarify`
+- 기술적 또는 외부 차단 → `work:blocked`
 
-새 라벨을 적용할 때 기존 워크플로우 라벨은 제거한다.
-
-- `agent:review`
-- `agent:changes-1`
-- `agent:changes-2`
-- `agent:merge-ready`
-- `agent:blocked`
+Source Issue의 모호성은 리뷰 수정 회차를 소모하지 않는다. 3회 제한을 포함한 전체 라벨 체계는 `docs/workflow-labels.md`를 따른다.
 
 Reviewer는 다음 작업을 수행할 Developer 프로파일이나 AI 모델을 결정하지 않는다.
 
 다음 실행자는 오케스트레이션 시스템이 결정한다.
+
+## 기획 보완 Handoff
+
+Source Issue의 모호성 때문에 리뷰를 계속할 수 없으면 기획자에게 다음을 포함한 짧은 handoff를 남긴다.
+
+- 막힌 질문
+- PR과 Issue 근거
+- 영향을 받는 기준
+- 안전한 선택지
+
+모호성을 추측성 REQUIRED 의견으로 바꾸지 않는다. Source Issue에 결정이 기록되거나 수정 Issue가 승인된 뒤, 해당되는 새 커밋을 리뷰한다.
 
 ---
 
@@ -241,10 +251,10 @@ Reviewer는 다음 작업을 수행할 Developer 프로파일이나 AI 모델을
 
 Label:
 
-- agent:merge-ready
-- agent:changes-1
-- agent:changes-2
-- agent:blocked
+- merge:ready
+- develop:resume + review:round-N
+- review:clarify
+- work:blocked
 ```
 
 ---

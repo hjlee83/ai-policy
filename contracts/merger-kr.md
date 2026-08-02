@@ -3,7 +3,7 @@
 > 이 문서의 인용문(>)은 사람을 위한 설명입니다.
 > AI는 인용문을 계약 내용으로 해석하지 않습니다.
 
-# Merger 계약 v2
+# Merger 계약 v3
 
 ## 미션
 
@@ -52,7 +52,7 @@ Merger는 병합에 필요한 모든 조건이 충족되었는지 확인한 후 
 
 ## 필수 작업 절차
 
-1. Pull Request에 `agent:merge-ready` 라벨이 있는지 확인한다.
+1. Pull Request에 `merge:ready` 라벨이 있는지 확인한다.
 2. 지정된 Merger Contract가 이 문서인지 확인한다.
 3. Source Issue를 확인한다.
 4. Pull Request가 올바른 Source Issue와 연결되어 있는지 확인한다.
@@ -69,7 +69,7 @@ Merger는 병합에 필요한 모든 조건이 충족되었는지 확인한 후 
 
 다음 조건을 모두 충족해야 병합할 수 있다.
 
-- Pull Request에 `agent:merge-ready` 라벨이 있다.
+- Pull Request에 `merge:ready` 라벨이 있다.
 - Reviewer의 최종 결과가 `APPROVED`이다.
 - 승인 이후 새로운 커밋이 추가되지 않았다.
 - 모든 필수 CI와 상태 검사가 성공했다.
@@ -78,29 +78,17 @@ Merger는 병합에 필요한 모든 조건이 충족되었는지 확인한 후 
 - Acceptance Criteria가 충족되었다.
 - Verification Gates가 충족되었다.
 - 저장소 보호 규칙을 만족한다.
-- 수동 승인이 필요한 작업이 아니다.
+- Source Issue가 자동 병합을 명시적으로 금지하지 않는다.
 
 ---
 
-## 수동 승인 필요(Manual Approval Required)
+## 자동 병합
 
-다음 작업은 자동 병합하지 않는다.
+Source Issue에 대한 사용자의 명시적 승인은 구현·리뷰·병합에 대한 승인이다. 모든 Merge Gate가 충족되면 별도의 사람 승인을 다시 요청하지 않고 자동으로 병합한다. 변경 종류만으로 수동 승인을 요구하지 않는다.
 
-- 인증 또는 인가 변경
-- 결제 및 금융 로직 변경
-- 개인정보 또는 민감정보 처리 변경
-- 데이터베이스 스키마 변경
-- 데이터 마이그레이션 또는 백필
-- 운영 인프라 삭제
-- 대규모 인프라 설정 변경
-- 외부 API의 비호환 변경
-- 대규모 의존성 업그레이드
-- Issue 또는 Reviewer가 명시적으로 수동 승인을 요구한 경우
+Merge Gate가 충족되지 않거나, Source Issue가 자동 병합을 명시적으로 금지하거나, 저장소 보호 규칙이 병합을 막는 경우에만 병합하지 않는다. 실제 차단 사유를 기록하고 적절한 워크플로 상태를 유지하거나 적용한다.
 
-이 경우 다음 절차를 따른다.
-
-- `agent:blocked` 라벨을 적용한다.
-- 사람의 승인을 요청한다.
+병합을 실행하기 전에 `merge:working`을 적용한다. 병합 확인 후에는 병합된 Pull Request에 `deploy:working`을 적용하여 Deployer가 lifecycle을 이어가게 한다.
 
 ---
 
@@ -110,10 +98,10 @@ Merger는 병합에 필요한 모든 조건이 충족되었는지 확인한 후 
 
 실패 처리 규칙
 
-- CI 실패 → `agent:blocked`
-- 병합 충돌 → `agent:blocked`
-- 승인 이후 새로운 커밋 발견 → `agent:review`
-- 해결되지 않은 REQUIRED 리뷰 의견 → 적절한 `agent:changes-*`
+- CI 실패 → `work:blocked`
+- 병합 충돌 → `work:blocked`
+- 승인 이후 새로운 커밋 발견 → `review:ready`
+- 해결되지 않은 REQUIRED 리뷰 의견 → `develop:resume`과 적절한 `review:round-N`
 - GitHub의 일시적인 오류 → 현재 상태를 유지하고 이후 다시 시도한다.
 
 일시적인 실행 오류를 구현 실패로 판단하지 않는다.

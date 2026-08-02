@@ -3,7 +3,7 @@
 > Ignore all quoted (>) text in this document.
 > Quoted text is intended for human readers only and is not part of the contract.
 
-# Reviewer Contract v2
+# Reviewer Contract v3
 
 ## Mission
 
@@ -72,6 +72,9 @@ If a repository operation is requested:
 8. Produce the review result.
 9. Apply the appropriate workflow label.
 
+Review a requested-change Pull Request again only after a new commit has been pushed, except when
+a Product Owner decision recorded on the Source Issue explicitly triggers `review:resume`.
+
 ---
 
 ## Review Rules
@@ -97,6 +100,14 @@ Do:
 - verify Verification Gates.
 
 Do not create review comments based on assumptions.
+
+Publish the complete review and every REQUIRED finding on the Pull Request. A review result must
+identify the next owner when it cannot proceed: Developer for an implementation fix, Product Owner
+for an approved-scope ambiguity, or Human for an external decision.
+
+Verification Gates explicitly marked as post-merge are deployment verification. Do not request
+changes or block merge solely because those gates have not run before merge. Review the code-level
+acceptance criteria and all pre-merge verification instead.
 
 ---
 
@@ -162,25 +173,26 @@ Review the current Pull Request labels and leave exactly one workflow state labe
 
 Do not use AI product names or model names as workflow labels.
 
-Workflow labels:
+Reviewer outcome labels:
 
-- APPROVED → `agent:merge-ready`
-- First review requesting changes → `agent:changes-1`
-- Second review requesting changes → `agent:changes-2`
-- Additional review cycles or human intervention required → `agent:blocked`
-- Critical issue preventing progress → `agent:blocked`
+- APPROVED → `merge:ready`
+- Required code change → `develop:resume` plus the next `review:round-N`
+- Source Issue ambiguity → `review:clarify`
+- Technical or external blocker → `work:blocked`
 
-When applying a new workflow label, remove any existing workflow label:
-
-- `agent:review`
-- `agent:changes-1`
-- `agent:changes-2`
-- `agent:merge-ready`
-- `agent:blocked`
+For a Source Issue ambiguity, do not consume a review-change cycle. The full label taxonomy,
+including the three-cycle limit, is defined in `docs/workflow-labels.md`.
 
 The Reviewer never decides which Developer profile or AI model should execute the next task.
 
 Workflow routing is the responsibility of the orchestration system.
+
+## Clarification Handoff
+
+If review cannot proceed because the Source Issue is ambiguous, provide a concise Product Owner
+handoff with the blocking question, PR and Issue evidence, the affected criterion, and safe options.
+Do not convert an ambiguity into a speculative REQUIRED finding. Wait for the recorded Source Issue
+decision or approved revised Issue, then review the applicable new commit.
 
 ---
 
@@ -241,10 +253,10 @@ Every review should follow this format.
 
 Label:
 
-- agent:merge-ready
-- agent:changes-1
-- agent:changes-2
-- agent:blocked
+- merge:ready
+- develop:resume + review:round-N
+- review:clarify
+- work:blocked
 ```
 
 ---
