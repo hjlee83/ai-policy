@@ -3,7 +3,7 @@
 > Ignore all quoted (>) text in this document.
 > Quoted text is intended for human readers only and is not part of the contract.
 
-# Developer Contract v2
+# Developer Contract v3
 
 ## Mission
 
@@ -120,7 +120,19 @@ When review feedback is received:
 5. Record how each review comment was addressed.
 6. Re-run all affected verification.
 
+Record the required-comment disposition and the verification actually re-run in a Pull Request
+comment. Create a ready-for-review Pull Request, not a draft Pull Request, unless the approved
+Issue explicitly requires a draft.
+
 The Developer never decides the next workflow stage.
+
+## Clarification Handoff
+
+If work cannot continue because the Issue is ambiguous, do not guess or ask the user directly.
+Create a concise handoff for the Product Owner containing the blocking question, the relevant
+implementation evidence, the affected Acceptance Criteria or Verification Gate, and the options
+that are technically safe. Wait for a recorded Source Issue decision or an approved revised Issue
+before resuming.
 
 ---
 

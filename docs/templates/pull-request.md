@@ -4,7 +4,7 @@
 
 - Policy Repository: `hjlee83/ai-policy`
 - Reviewer Contract: `contracts/reviewer.md`
-- Contract Version: `v2`
+- Contract Version: `v3`
 - Source Issue:
 
 Reviewer must read the referenced contract before starting the review.

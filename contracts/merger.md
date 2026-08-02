@@ -3,7 +3,7 @@
 > Ignore all quoted (>) text in this document.
 > Quoted text is intended for human readers only and is not part of the contract.
 
-# Merger Contract v2
+# Merger Contract v3
 
 ## Mission
 
@@ -78,29 +78,19 @@ Every condition below must be satisfied.
 - Acceptance Criteria verified
 - Verification Gates verified
 - Repository protection rules satisfied
-- Manual approval not required
+- Source Issue does not explicitly prohibit automatic merge
 
 ---
 
-## Manual Approval Required
+## Automatic Merge
 
-Never perform automatic merge when the Pull Request includes:
+The user's explicit approval of the Source Issue is the approval for implementation, review, and
+merge. When every Merge Gate is satisfied, merge automatically without asking for a second human
+approval. Do not use change category alone to require manual approval.
 
-- authentication or authorization changes;
-- payment or financial logic;
-- personal or sensitive data handling;
-- database schema changes;
-- data migration or backfill;
-- infrastructure deletion;
-- major infrastructure configuration;
-- incompatible external API changes;
-- major dependency upgrades;
-- explicit manual approval requirement from the Issue or Reviewer.
-
-Instead:
-
-- apply `agent:blocked`
-- request human approval
+Do not merge only when a Merge Gate is not satisfied, the Source Issue explicitly prohibits
+automatic merge, or repository protection rules prevent the merge. Record the actual blocking
+condition and preserve or apply the appropriate workflow state.
 
 ---
 

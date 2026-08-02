@@ -6,7 +6,7 @@ This repository contains shared AI role contracts only. It does not contain proj
 
 ## Policy Version
 
-Current stable policy: `v1.0.0`
+Current stable policy: `v3.0.0`
 
 See `CHANGELOG.md` for release notes.
 
@@ -22,6 +22,8 @@ contracts/
     reviewer-kr.md
     merger.md
     merger-kr.md
+    deployer.md
+    deployer-kr.md
 docs/
     templates/
         issue.md

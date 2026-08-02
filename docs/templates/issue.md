@@ -8,7 +8,7 @@ Title: `<concise outcome-oriented title>`
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v2`
+- Contract Version: `v3`
 
 The Developer must read and follow the referenced contract before starting work.
 
@@ -35,8 +35,8 @@ Explain the current problem, reason for the change, and relevant context.
 
 ## Verification Gates
 
-- [ ] Automated test, build command, or objective verification procedure 1
-- [ ] Regression or compatibility verification procedure 2
+- [ ] (Pre-merge) Automated test, build command, or objective verification procedure 1
+- [ ] (Post-merge) Deployment or E2E verification procedure 2
 
 ## Out of Scope
 
