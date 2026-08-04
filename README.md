@@ -28,7 +28,7 @@ Each canonical contract is self-contained and must work without loading addition
 | Repository | Responsibility |
 |---|---|
 | `ai-policy` | Defines what AI roles must do |
-| `ai-automation` | Executes workflows and automation runtime |
+| Relay/automation tooling | Deployed per Target Repository to execute workflows and automation runtime; implementation varies by project (current example: `gh-relay`) |
 | Target Repository | Contains application source code |
 
 ## Compatibility
