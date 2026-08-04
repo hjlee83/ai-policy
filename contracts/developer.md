@@ -61,12 +61,13 @@ If a repository operation is requested:
    - Acceptance Criteria
    - Verification Gates
    - Out of Scope
-5. Analyze the existing codebase before making changes.
-6. If the implementation guidance conflicts with the actual architecture, choose the safer implementation and document the reason in the Pull Request.
-7. If requirements are ambiguous or incomplete, stop and request clarification.
-8. Implement the approved scope.
-9. Execute all applicable verification.
-10. Prepare the Pull Request.
+5. If the Target Repository has an `ARCHITECTURE.md`, read it before analyzing the codebase.
+6. Analyze the existing codebase before making changes.
+7. If the implementation guidance conflicts with the actual architecture, choose the safer implementation and document the reason in the Pull Request.
+8. If requirements are ambiguous or incomplete, stop and request clarification.
+9. Implement the approved scope.
+10. Execute all applicable verification.
+11. Prepare the Pull Request.
 
 ---
 
@@ -198,6 +199,7 @@ Before completing the work, confirm:
 - Scope completed
 - Acceptance Criteria satisfied
 - Verification completed
+- ARCHITECTURE.md updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
 - Pull Request prepared
 - AI Review Handoff included
 

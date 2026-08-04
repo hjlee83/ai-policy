@@ -1,5 +1,15 @@
 # Changelog
 
+## v3.1.0 - 2026-08-04
+
+Adds shared per-repository architecture context to reduce repeated discovery cost across roles.
+
+### Added
+
+- Developer reads a Target Repository `ARCHITECTURE.md`, when present, before analyzing the codebase, and updates it (or creates a minimal version) after a structurally meaningful change (module composition, data flow, or component responsibilities).
+- Reviewer checks, as a RECOMMENDED finding, whether a structurally meaningful PR left `ARCHITECTURE.md` unupdated, while treating the document only as an orientation starting point and verifying accuracy against the actual diff and code.
+- Product Owner reads an existing `ARCHITECTURE.md` first, when present, to inform the Design Confidence assessment before writing an Issue.
+
 ## v3.0.0 - 2026-08-02
 
 Workflow-complete policy release for autonomous Issue-to-deployment execution.

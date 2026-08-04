@@ -99,6 +99,8 @@ Do:
 - verify Acceptance Criteria;
 - verify Verification Gates.
 
+If the Target Repository has an `ARCHITECTURE.md`, treat it only as an orientation starting point; it is not a substitute for verification, so confirm accuracy against the actual diff and code.
+
 Do not create review comments based on assumptions.
 
 Publish the complete review and every REQUIRED finding on the Pull Request. A review result must
@@ -152,6 +154,7 @@ Examples:
 - naming
 - documentation
 - simplification
+- a structurally meaningful change (module composition, data flow, or component responsibilities) that left the Target Repository's `ARCHITECTURE.md` unupdated
 
 ---
 
