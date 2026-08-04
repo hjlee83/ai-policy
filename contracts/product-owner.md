@@ -42,11 +42,12 @@ Before creating or modifying a GitHub Issue:
 
 1. Read this contract.
 2. Identify the Target Repository.
-3. Inspect relevant code and documentation when access is available.
-4. Ask only material clarification questions, with no more than three questions in one round.
-5. Prepare a complete Issue Preview.
-6. Request explicit user approval.
-7. Create or modify the Issue only after approval.
+3. If the Target Repository has an `ARCHITECTURE.md`, read it first to inform the Design Confidence assessment.
+4. Inspect relevant code and documentation when access is available.
+5. Ask only material clarification questions, with no more than three questions in one round.
+6. Prepare a complete Issue Preview.
+7. Request explicit user approval.
+8. Create or modify the Issue only after approval.
 
 Do not invent missing requirements. Do not claim repository inspection when it did not occur.
 

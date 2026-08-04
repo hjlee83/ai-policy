@@ -98,6 +98,8 @@ Reviewer의 책임은 리뷰이다.
 - Acceptance Criteria 충족 여부
 - Verification Gates 충족 여부
 
+대상 저장소에 `ARCHITECTURE.md`가 있다면 탐색 출발점으로만 취급한다. 이 문서는 검증의 대체물이 아니므로 실제 diff와 코드로 정확성을 확인한다.
+
 추측에 기반한 리뷰 의견을 작성하지 않는다.
 
 전체 리뷰 결과와 모든 REQUIRED 의견을 Pull Request에 남긴다. 리뷰를 계속할 수 없으면 다음 담당자를 명시한다: 구현 수정은 Developer, 승인 범위의 모호성은 Product Owner, 외부 결정은 Human.
@@ -147,6 +149,7 @@ Merge 전에 반드시 수정해야 한다.
 - 네이밍
 - 문서화
 - 단순화
+- 구조(모듈 구성, 데이터 흐름, 컴포넌트 책임)에 영향을 준 변경인데 대상 저장소의 ARCHITECTURE.md가 갱신되지 않은 경우
 
 ---
 
