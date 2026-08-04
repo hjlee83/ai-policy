@@ -61,13 +61,14 @@ If a repository operation is requested:
    - Acceptance Criteria
    - Verification Gates
    - Out of Scope
-5. If the Target Repository has an `ARCHITECTURE.md`, read it before analyzing the codebase.
+5. If the project's local shared-state directory (auto-created by gh-relay on dispatch; default path `~/.gh-relay/<project>/`, though the actual path depends on deployment configuration) has a `summary.md`, read it before analyzing the codebase.
 6. Analyze the existing codebase before making changes.
 7. If the implementation guidance conflicts with the actual architecture, choose the safer implementation and document the reason in the Pull Request.
 8. If requirements are ambiguous or incomplete, stop and request clarification.
 9. Implement the approved scope.
-10. Execute all applicable verification.
-11. Prepare the Pull Request.
+10. While implementing, record progress notes in that shared-state directory's `issue-N` (or `pr-N`) folder, if present. The exact note file name is not prescribed.
+11. Execute all applicable verification.
+12. Prepare the Pull Request.
 
 ---
 
@@ -199,7 +200,7 @@ Before completing the work, confirm:
 - Scope completed
 - Acceptance Criteria satisfied
 - Verification completed
-- ARCHITECTURE.md updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
+- The shared-state directory's summary.md updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
 - Pull Request prepared
 - AI Review Handoff included
 

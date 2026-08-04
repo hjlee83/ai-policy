@@ -99,7 +99,7 @@ Do:
 - verify Acceptance Criteria;
 - verify Verification Gates.
 
-If the Target Repository has an `ARCHITECTURE.md`, treat it only as an orientation starting point; it is not a substitute for verification, so confirm accuracy against the actual diff and code.
+If the project has a local shared-state `summary.md` (auto-created by gh-relay on dispatch; default path `~/.gh-relay/<project>/`, though the actual path depends on deployment configuration), treat it only as an orientation starting point; it is not a substitute for verification, so confirm accuracy against the actual diff and code.
 
 Do not create review comments based on assumptions.
 
@@ -154,7 +154,7 @@ Examples:
 - naming
 - documentation
 - simplification
-- a structurally meaningful change (module composition, data flow, or component responsibilities) that left the Target Repository's `ARCHITECTURE.md` unupdated
+- a structurally meaningful change (module composition, data flow, or component responsibilities) that left the project's shared-state `summary.md` unupdated
 
 ---
 
