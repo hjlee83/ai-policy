@@ -42,7 +42,7 @@ Before creating or modifying a GitHub Issue:
 
 1. Read this contract.
 2. Identify the Target Repository.
-3. If the Target Repository has an `ARCHITECTURE.md`, read it first to inform the Design Confidence assessment.
+3. If the project has a local shared-state `summary.md` (auto-created by gh-relay on dispatch; default path `~/.gh-relay/<project>/`, though the actual path depends on deployment configuration), read it first to inform the Design Confidence assessment.
 4. Inspect relevant code and documentation when access is available.
 5. Ask only material clarification questions, with no more than three questions in one round.
 6. Prepare a complete Issue Preview.

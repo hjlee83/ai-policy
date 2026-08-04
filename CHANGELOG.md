@@ -2,13 +2,17 @@
 
 ## v3.1.0 - 2026-08-04
 
-Adds shared per-repository architecture context to reduce repeated discovery cost across roles.
+Adds shared per-project context to reduce repeated discovery cost across roles, backed by gh-relay's local, non-git dispatch-mirror shared-state directory (default `~/.gh-relay/<project>/`) rather than a git-committed file in the Target Repository.
 
 ### Added
 
-- Developer reads a Target Repository `ARCHITECTURE.md`, when present, before analyzing the codebase, and updates it (or creates a minimal version) after a structurally meaningful change (module composition, data flow, or component responsibilities).
-- Reviewer checks, as a RECOMMENDED finding, whether a structurally meaningful PR left `ARCHITECTURE.md` unupdated, while treating the document only as an orientation starting point and verifying accuracy against the actual diff and code.
-- Product Owner reads an existing `ARCHITECTURE.md` first, when present, to inform the Design Confidence assessment before writing an Issue.
+- Developer reads the project's shared-state `summary.md`, when present, before analyzing the codebase, and updates it (or creates a minimal version) after a structurally meaningful change (module composition, data flow, or component responsibilities). Developer also records progress notes in that project's `issue-N`/`pr-N` folder while implementing.
+- Reviewer checks, as a RECOMMENDED finding, whether a structurally meaningful PR left the project's shared-state `summary.md` unupdated, while treating the document only as an orientation starting point and verifying accuracy against the actual diff and code.
+- Product Owner reads the project's existing shared-state `summary.md` first, when present, to inform the Design Confidence assessment before writing an Issue.
+
+### Note
+
+An earlier same-day revision of this release used a git-committed `ARCHITECTURE.md` in the Target Repository instead. That approach was superseded before any Target Repository adopted it (this policy repository was the only place it was ever recorded), so this entry documents the shared-state approach directly rather than layering a separate release on top.
 
 ## v3.0.0 - 2026-08-02
 
