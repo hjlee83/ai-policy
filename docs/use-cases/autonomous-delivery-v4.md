@@ -1,9 +1,11 @@
 # Autonomous Delivery Use Cases v4
 
-These use cases exercise the role contracts without prescribing a particular runtime. Slack is the
-concise decision surface; each task's local folder (`~/task/<project>/task-NNN/`) is the durable
-record. `status.md` describes the current action and uses `Review-Round` or `Followup` only as
-supplementary context.
+These use cases exercise the role contracts without prescribing a particular runtime. Slack stands
+in for whatever decision channel a deployment configures; per `contracts/product-owner.md`'s
+Decision Channel rule, that channel exists only when explicitly configured, and the current session
+is the decision channel otherwise. Each task's local folder (`~/task/<project>/task-NNN/`) is the
+durable record. `status.md` describes the current action and uses `Review-Round` or `Followup` only
+as supplementary context.
 
 ## Common Invariants
 

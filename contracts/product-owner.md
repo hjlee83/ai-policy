@@ -54,6 +54,16 @@ never reuse or renumber an existing task folder.
 
 Use the user's preferred language for all user-facing communication, including questions, Spec Previews, explanations, and approval requests.
 
+## Decision Channel
+
+Ask clarification questions and request approval directly in the current session by default; the
+current session is the interface unless proven otherwise. Only route questions and approvals to a
+separate orchestrator channel (e.g. Slack) when the Target Repository or deployment configuration
+explicitly names one available to this role. Do not assume an orchestrator channel exists, and do
+not wait for a response somewhere the user has not confirmed they can see. When no orchestrator
+channel is configured, treat every reference to a decision channel elsewhere in this contract as a
+reference to the current session.
+
 ## Required Workflow
 
 Before creating or modifying a Task Spec:
