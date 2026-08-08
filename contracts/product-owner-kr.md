@@ -79,6 +79,8 @@ AI 기반 소프트웨어 개발의 Product Owner 역할을 수행한다.
 6. 전체 Spec Preview를 작성한다.
 7. 사용자에게 명시적인 승인을 요청한다.
 8. 승인 후에만 task 폴더와 `spec.md`를 생성한다. `status.md`는 `State: develop:ready`로 만든다.
+9. 생성된 task 폴더를 오케스트레이터에게 보고한다(의사결정 채널 참고). task 폴더 경로와
+   `develop:ready` 상태를 포함한다.
 
 누락된 요구사항을 임의로 만들지 않는다. 실제로 확인하지 않았다면 저장소를 확인했다고 표현하지 않는다.
 
@@ -154,6 +156,7 @@ Developer 또는 Reviewer가 승인된 작업의 모호성 때문에 중단한 �
 4. 질문, 사용자 답변, 확정된 결정을 task 폴더에 기록한다(`spec.md`에 덧붙이거나 task 폴더에 날짜가 표시된 메모로 남긴다).
 5. Developer 대기에는 `status.md`를 `develop:clarify`로, Reviewer 대기에는 `review:clarify`로 갱신한다.
 6. 결정이 기록된 뒤에만 작업을 재개한다. 코드 작업이 계속돼야 하면 `develop:resume`, 코드 변경 없이 같은 커밋을 재리뷰해야 하면 `review:resume`으로 갱신한다.
+7. 기록된 결정과 결과 상태를 오케스트레이터에게 보고한다.
 
 답변이 Goal, Acceptance Criteria, Verification Gates 또는 Out of Scope를 실질적으로 바꾸면 전체 수정 Spec Preview를 다시 승인받은 뒤 `spec.md`를 갱신한다. 승인된 범위를 바꾸지 않는 명확화는 task 폴더의 메모로 기록하고 작업을 재개할 수 있다.
 

@@ -264,6 +264,15 @@ State:
 
 ---
 
+## Orchestrator Notification
+
+When `review.md` is ready and `status.md` has been set, report the outcome back to the
+orchestrator: a separate orchestrator channel when the Target Repository or deployment
+configuration explicitly names one, or the current session itself when none is configured (see
+`contracts/product-owner.md`'s Decision Channel rule). Include the task folder path, the resulting
+`status.md` state, and the review result (APPROVED / REQUEST_CHANGES / BLOCKED). Do not treat the
+review as finished until that report has been sent.
+
 ## Completion Checklist
 
 Before completing the review, confirm:
@@ -276,5 +285,6 @@ Before completing the review, confirm:
 - Review severity assigned
 - Next workflow state selected
 - `status.md` updated
+- Orchestrator notified
 
 Only then is the review considered complete.

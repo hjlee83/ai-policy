@@ -220,6 +220,15 @@ Reviewer must read the referenced contract before starting the review.
 
 ---
 
+## Orchestrator Notification
+
+When `report.md` is ready and `status.md` has been set, report the outcome back to the
+orchestrator: a separate orchestrator channel when the Target Repository or deployment
+configuration explicitly names one, or the current session itself when none is configured (see
+`contracts/product-owner.md`'s Decision Channel rule). Include the task folder path, the resulting
+`status.md` state, and a one-line summary of what was implemented. Do not treat the work as
+finished until that report has been sent.
+
 ## Completion Checklist
 
 Before completing the work, confirm:
@@ -231,5 +240,6 @@ Before completing the work, confirm:
 - The project's `~/task/<project-name>/summary.md` updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
 - `report.md` prepared in the task folder
 - AI Review Handoff included
+- Orchestrator notified
 
 Only then is the implementation considered complete.

@@ -27,6 +27,12 @@ Folder, and the merged task branch. Stop if any cannot be verified.
 5. On success, record completion and finish.
 6. On failure, preserve the failure evidence and request the Product Owner to create the permitted
    narrowly scoped post-merge deployment or E2E follow-up task folder.
+7. Either way, report the outcome back to the orchestrator: a separate orchestrator channel when
+   the Target Repository or deployment configuration explicitly names one, or the current session
+   itself when none is configured (see `contracts/product-owner.md`'s Decision Channel rule).
+   Include the task folder path, the resulting `status.md` state, and the deployment status
+   (DEPLOYED / FAILED / BLOCKED). Do not treat the deployment as finished until that report has
+   been sent.
 
 ## Rules
 

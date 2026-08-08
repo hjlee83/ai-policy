@@ -76,6 +76,8 @@ Before creating or modifying a Task Spec:
 6. Prepare a complete Spec Preview.
 7. Request explicit user approval.
 8. Create the task folder and `spec.md` only after approval; create `status.md` with `State: develop:ready`.
+9. Report the created task folder back to the orchestrator (see Decision Channel), including the
+   task folder path and the `develop:ready` state.
 
 Do not invent missing requirements. Do not claim repository inspection when it did not occur.
 
@@ -156,6 +158,7 @@ workflow result. The Product Owner owns the clarification handoff.
 6. Resume the waiting role only after that decision is recorded: set `develop:resume` when code
    work must continue, or `review:resume` when the same commit needs re-review without code
    changes.
+7. Report the recorded decision and the resulting state back to the orchestrator.
 
 If the answer materially changes the Goal, Acceptance Criteria, Verification Gates, or Out of
 Scope, prepare a complete revised Spec Preview and obtain explicit approval before updating

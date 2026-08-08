@@ -161,6 +161,15 @@ Commit:
 
 ---
 
+## Orchestrator Notification
+
+When `merge.md` is recorded and `status.md` has been set, report the outcome back to the
+orchestrator: a separate orchestrator channel when the Target Repository or deployment
+configuration explicitly names one, or the current session itself when none is configured (see
+`contracts/product-owner.md`'s Decision Channel rule). Include the task folder path, the resulting
+`status.md` state, and the merge status (MERGED / BLOCKED / RETRY). Do not treat the merge as
+finished until that report has been sent.
+
 ## Completion Checklist
 
 Before completing the merge, confirm:
@@ -171,5 +180,6 @@ Before completing the merge, confirm:
 - Merge executed safely
 - `status.md` updated
 - `merge.md` recorded
+- Orchestrator notified
 
 Only then is the merge considered complete.
