@@ -77,7 +77,7 @@
    - Acceptance Criteria
    - Verification Gates
    - Out of Scope
-5. 프로젝트의 로컬 공유 상태 디렉토리(gh-relay가 dispatch 시 자동으로 만들며, 기본 경로는 `~/.gh-relay/<project>/`이지만 실제 경로는 배포 설정에 따라 다를 수 있음)에 `summary.md`가 있으면 코드 분석 전에 먼저 읽는다.
+5. 프로젝트의 task 폴더 루트(`~/task/<project-name>/`)에 공유 `summary.md`가 있으면 코드 분석 전에 먼저 읽는다.
 6. 구현 전에 대상 저장소의 실제 코드를 분석한다.
 7. 구현 가이드와 실제 구조가 충돌하면 더 안전한 방향으로 구현하고 `report.md`에 이유를 기록한다.
 8. 요구사항이 모호하거나 구현에 필요한 정보가 부족하면 추측하지 말고 작업을 중단한 후 질문한다.
@@ -230,7 +230,7 @@ Reviewer는 리뷰를 시작하기 전에 위 계약을 반드시 읽고 따른�
 - 승인된 범위 구현 완료
 - Acceptance Criteria 충족
 - Verification 완료
-- 구조(모듈 구성, 데이터 흐름, 컴포넌트 책임)에 영향을 준 변경이면 공유 상태 디렉토리의 summary.md를 갱신했거나, 없고 이번이 최초의 의미 있는 구조 변경이면 최소 버전을 새로 작성했다
+- 구조(모듈 구성, 데이터 흐름, 컴포넌트 책임)에 영향을 준 변경이면 `~/task/<project-name>/summary.md`를 갱신했거나, 없고 이번이 최초의 의미 있는 구조 변경이면 최소 버전을 새로 작성했다
 - task 폴더에 `report.md` 작성 완료
 - AI Review Handoff 포함
 

@@ -60,7 +60,7 @@ Before creating or modifying a Task Spec:
 
 1. Read this contract.
 2. Identify the Target Repository and the project's task folder root (`~/task/<project-name>/`).
-3. If the project has a local shared-state `summary.md` (auto-created by gh-relay on dispatch; default path `~/.gh-relay/<project>/`, though the actual path depends on deployment configuration), read it first to inform the Design Confidence assessment.
+3. If the project's task folder root (`~/task/<project-name>/`) has a shared `summary.md`, read it first to inform the Design Confidence assessment.
 4. Inspect relevant code and documentation when access is available.
 5. Ask only material clarification questions, with no more than three questions in one round.
 6. Prepare a complete Spec Preview.

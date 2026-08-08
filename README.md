@@ -43,13 +43,15 @@ Each canonical contract is self-contained and must work without loading addition
 Work is tracked in a local task folder instead of a GitHub Issue or Pull Request:
 
 ```text
-~/task/<project-name>/task-NNN/
-    spec.md      (Product Owner's approved requirements)
-    status.md    (current lifecycle state)
-    report.md    (Developer's implementation report)
-    review.md    (Reviewer's output)
-    merge.md     (Merger's output)
-    deploy.md    (Deployer's output)
+~/task/<project-name>/
+    summary.md       (shared, project-level architecture summary; optional, maintained across tasks)
+    task-NNN/
+        spec.md       (Product Owner's approved requirements)
+        status.md     (current lifecycle state)
+        report.md     (Developer's implementation report)
+        review.md     (Reviewer's output)
+        merge.md      (Merger's output)
+        deploy.md     (Deployer's output)
 ```
 
 `<project-name>` identifies the Target Repository; `task-NNN` is a sequential, zero-padded,
@@ -79,7 +81,6 @@ Use `docs/task-status.md` for the primary task lifecycle states.
 | Repository | Responsibility |
 |---|---|
 | `ai-policy` | Defines what AI roles must do |
-| Relay/automation tooling | Deployed per Target Repository to execute workflows and automation runtime; implementation varies by project (current example: `gh-relay`) |
 | Target Repository | Contains application source code |
 
 ## Compatibility

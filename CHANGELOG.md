@@ -13,6 +13,7 @@ Replaces the GitHub Issue/Pull Request workflow with a local task-folder workflo
 - `docs/workflow-labels.md` replaced by `docs/task-status.md`; GitHub labels replaced by a `State` field (plus supplementary `Review-Round`/`Followup` fields) in each task's `status.md`.
 - Product Owner, Developer, Reviewer, Merger, and Deployer contracts (and their `-kr.md` translations) updated to v4 to reference the task folder instead of GitHub Issues/PRs/labels.
 - Use cases renamed `docs/use-cases/autonomous-delivery-v4.md` and updated to the task-folder model.
+- The gh-relay-specific shared-state `summary.md` (`~/.gh-relay/<project>/summary.md`) is replaced by a project-level `~/task/<project-name>/summary.md`, maintained directly by the roles instead of an external dispatch tool.
 
 ## v3.1.0 - 2026-08-04
 

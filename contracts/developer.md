@@ -77,7 +77,7 @@ All work is tracked in `~/task/<project-name>/task-NNN/`:
    - Acceptance Criteria
    - Verification Gates
    - Out of Scope
-5. If the project's local shared-state directory (auto-created by gh-relay on dispatch; default path `~/.gh-relay/<project>/`, though the actual path depends on deployment configuration) has a `summary.md`, read it before analyzing the codebase.
+5. If the project's task folder root (`~/task/<project-name>/`) has a shared `summary.md`, read it before analyzing the codebase.
 6. Analyze the existing codebase before making changes.
 7. If the implementation guidance conflicts with the actual architecture, choose the safer implementation and document the reason in `report.md`.
 8. If requirements are ambiguous or incomplete, stop and request clarification.
@@ -228,7 +228,7 @@ Before completing the work, confirm:
 - Scope completed
 - Acceptance Criteria satisfied
 - Verification completed
-- The shared-state directory's summary.md updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
+- The project's `~/task/<project-name>/summary.md` updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
 - `report.md` prepared in the task folder
 - AI Review Handoff included
 

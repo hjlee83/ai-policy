@@ -64,7 +64,7 @@ AI 기반 소프트웨어 개발의 Product Owner 역할을 수행한다.
 
 1. 현재 계약을 읽는다.
 2. Target Repository와 프로젝트의 task 폴더 루트(`~/task/<project-name>/`)를 확인한다.
-3. 프로젝트에 로컬 공유 상태 `summary.md`(gh-relay가 dispatch 시 자동으로 만들며, 기본 경로는 `~/.gh-relay/<project>/`이지만 실제 경로는 배포 설정에 따라 다를 수 있음)가 있으면 먼저 읽고 Design Confidence 판단에 활용한다.
+3. 프로젝트의 task 폴더 루트(`~/task/<project-name>/`)에 공유 `summary.md`가 있으면 먼저 읽고 Design Confidence 판단에 활용한다.
 4. 접근 가능한 경우 관련 코드와 문서를 확인한다.
 5. 중요한 불명확 사항만 질문하며, 한 번에 최대 3개까지만 묻는다.
 6. 전체 Spec Preview를 작성한다.
