@@ -1,11 +1,11 @@
 # Autonomous Delivery Use Cases v4
 
-These use cases exercise the role contracts without prescribing a particular runtime. Slack stands
-in for whatever decision channel a deployment configures; per `contracts/product-owner.md`'s
-Decision Channel rule, that channel exists only when explicitly configured, and the current session
-is the decision channel otherwise. Each task's local folder (`~/task/<project>/task-NNN/`) is the
-durable record. `status.md` describes the current action and uses `Review-Round` or `Followup` only
-as supplementary context.
+These use cases exercise the role contracts without prescribing a particular runtime. The
+orchestrator is the decision channel: a separate orchestrator channel when a deployment explicitly
+configures one, or the current session itself otherwise, per `contracts/product-owner.md`'s
+Decision Channel rule. Each task's local folder (`~/task/<project>/task-NNN/`) is the durable
+record. `status.md` describes the current action and uses `Review-Round` or `Followup` only as
+supplementary context.
 
 ## Common Invariants
 
@@ -22,7 +22,7 @@ as supplementary context.
 ## UC-01: Normal autonomous delivery
 
 ```text
-Slack request
+Orchestrator request
   -> task folder created [develop:ready]
   -> Developer claim [develop:working]
   -> report.md created [review:ready]
@@ -39,7 +39,7 @@ Slack request
 ```text
 task [develop:working]
   -> ambiguity [develop:clarify]
-  -> Slack question: 1 option A / 2 option B / 3 free text / 4 ask again
+  -> orchestrator question: 1 option A / 2 option B / 3 free text / 4 ask again
   -> decision recorded in the task folder
   -> resume trigger [develop:resume]
   -> existing task branch resumed [develop:working]
@@ -67,7 +67,7 @@ For another required code change, replace `review:round-1` with `review:round-2`
 ```text
 task [review:working]
   -> ambiguous approved scope [review:clarify]
-  -> Slack question and task folder decision
+  -> orchestrator question and task folder decision
   -> same-commit re-review trigger [review:resume]
   -> Reviewer claim [review:working]
   -> approved [merge:ready]
@@ -81,7 +81,7 @@ commit SHA.
 ```text
 task [review:working]
   -> ambiguous approved scope [review:clarify]
-  -> Slack question and spec.md update
+  -> orchestrator question and spec.md update
   -> code change [develop:resume, review:round-1]
   -> same task branch resumed [develop:working, review:round-1]
   -> push [review:ready, review:round-1]
@@ -94,7 +94,7 @@ task [review:working, review:round-2]
   -> another REQUIRED code fix [develop:resume, review:round-3]
   -> push and re-review [review:working, review:round-3]
   -> another REQUIRED code fix [review:clarify, review:round-3]
-  -> Slack asks: 1 one more correction / 2 revise plan / 3 stop / 4 ask again
+  -> orchestrator asks: 1 one more correction / 2 revise plan / 3 stop / 4 ask again
 ```
 
 Automatic code-fix looping stops at that final clarification. If the user permits another
@@ -123,7 +123,7 @@ Merged task [e2e:working]
 
 | Event | Expected outcome |
 |---|---|
-| Duplicate Slack request, answer, or local filesystem event | One durable action is taken; later duplicates observe the same `status.md` state record. |
+| Duplicate orchestrator request, answer, or local filesystem event | One durable action is taken; later duplicates observe the same `status.md` state record. |
 | Duplicate worker claim | The lease permits only one active Developer or Reviewer per task folder. |
-| Slack notification failure after a task-folder mutation | The task folder remains authoritative; the concise Slack notification retries without repeating the mutation. |
+| Orchestrator notification failure after a task-folder mutation | The task folder remains authoritative; the concise orchestrator notification retries without repeating the mutation. |
 | Local tooling temporary failure | The state does not advance; retry follows the existing state. |

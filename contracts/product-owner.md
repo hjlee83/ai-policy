@@ -56,13 +56,13 @@ Use the user's preferred language for all user-facing communication, including q
 
 ## Decision Channel
 
-Ask clarification questions and request approval directly in the current session by default; the
-current session is the interface unless proven otherwise. Only route questions and approvals to a
-separate orchestrator channel (e.g. Slack) when the Target Repository or deployment configuration
-explicitly names one available to this role. Do not assume an orchestrator channel exists, and do
-not wait for a response somewhere the user has not confirmed they can see. When no orchestrator
-channel is configured, treat every reference to a decision channel elsewhere in this contract as a
-reference to the current session.
+Ask clarification questions and request approval by asking back to the orchestrator. The
+orchestrator is whatever routes the question to the user: a separate orchestrator channel when the
+Target Repository or deployment configuration explicitly names one available to this role, or the
+current session itself when none is configured. Do not assume a separate orchestrator channel
+exists, and do not wait for a response somewhere the user has not confirmed they can see. When no
+separate orchestrator channel is configured, treat every reference to the orchestrator elsewhere in
+this contract as a reference to the current session.
 
 ## Required Workflow
 
