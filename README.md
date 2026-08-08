@@ -6,7 +6,7 @@ This repository contains shared AI role contracts only. It does not contain proj
 
 ## Policy Version
 
-Current stable policy: `v3.1.0`
+Current stable policy: `v4.0.0`
 
 See `CHANGELOG.md` for release notes.
 
@@ -26,9 +26,10 @@ contracts/
     deployer-kr.md
 docs/
     templates/
-        issue.md
-        pull-request.md
-    workflow-labels.md
+        spec.md
+        report.md
+        status.md
+    task-status.md
     use-cases/
 ```
 
@@ -37,24 +38,41 @@ docs/
 
 Each canonical contract is self-contained and must work without loading additional policy files.
 
+## Task Folder
+
+Work is tracked in a local task folder instead of a GitHub Issue or Pull Request:
+
+```text
+~/task/<project-name>/task-NNN/
+    spec.md      (Product Owner's approved requirements)
+    status.md    (current lifecycle state)
+    report.md    (Developer's implementation report)
+    review.md    (Reviewer's output)
+    merge.md     (Merger's output)
+    deploy.md    (Deployer's output)
+```
+
+`<project-name>` identifies the Target Repository; `task-NNN` is a sequential, zero-padded,
+per-project counter.
+
 ## Required Workflow
 
 All implementation work must follow this workflow:
 
 ```text
-Issue -> Contract -> ADR -> Implementation -> PR -> Review -> Merge
+Spec -> Contract -> ADR -> Implementation -> Report -> Review -> Merge
 ```
 
-- `Issue`: define the approved goal, acceptance criteria, verification gates, and out-of-scope work.
+- `Spec`: define the approved goal, acceptance criteria, verification gates, and out-of-scope work in the task folder's `spec.md`.
 - `Contract`: the acting AI role reads and declares the relevant contract before work starts.
-- `ADR`: record architectural decisions when required by the Issue or by material architecture changes.
-- `Implementation`: complete only the approved scope.
-- `PR`: submit the work using the standard Pull Request template.
-- `Review`: review against the source Issue, contract, acceptance criteria, and verification gates.
-- `Merge`: merge only after review is complete.
+- `ADR`: record architectural decisions when required by the spec or by material architecture changes.
+- `Implementation`: complete only the approved scope on the task branch.
+- `Report`: submit the work using the standard task report template in `report.md`.
+- `Review`: review against the spec, contract, acceptance criteria, and verification gates in `review.md`.
+- `Merge`: merge the task branch locally only after review is complete.
 
-Use `docs/templates/issue.md` and `docs/templates/pull-request.md` as the standard templates for repositories that adopt this policy.
-Use `docs/workflow-labels.md` for primary Issue and Pull Request lifecycle labels.
+Use `docs/templates/spec.md`, `docs/templates/report.md`, and `docs/templates/status.md` as the standard templates for repositories that adopt this policy.
+Use `docs/task-status.md` for the primary task lifecycle states.
 
 ## Repository Boundaries
 

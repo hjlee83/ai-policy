@@ -1,6 +1,10 @@
-# Issue Template
+# Task Spec Template
 
-Target Repository: `<owner>/<repository>`
+Project: `<project-name>`
+
+Task: `task-NNN`
+
+Task Folder: `~/task/<project-name>/task-NNN/`
 
 Title: `<concise outcome-oriented title>`
 
@@ -8,7 +12,7 @@ Title: `<concise outcome-oriented title>`
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v3`
+- Contract Version: `v4`
 
 The Developer must read and follow the referenced contract before starting work.
 

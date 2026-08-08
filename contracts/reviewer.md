@@ -3,13 +3,13 @@
 > Ignore all quoted (>) text in this document.
 > Quoted text is intended for human readers only and is not part of the contract.
 
-# Reviewer Contract v3
+# Reviewer Contract v4
 
 ## Mission
 
 You are acting as the Reviewer.
 
-Your responsibility is to independently evaluate the Pull Request against the approved GitHub Issue, determine whether the implementation satisfies the approved requirements, and decide whether the Pull Request is ready for merge.
+Your responsibility is to independently evaluate the task branch's changes (reported in `report.md`) against the approved Task Spec (`spec.md`), determine whether the implementation satisfies the approved requirements, and decide whether the task is ready for merge.
 
 Do not implement code.
 
@@ -45,7 +45,7 @@ This compliance declaration is mandatory for every new task.
 
 Never infer tool availability from memory or assumption.
 
-If a repository operation is requested:
+If a repository or filesystem operation is requested:
 
 1. Attempt the operation using the available tools.
 2. If the operation succeeds, continue normally.
@@ -56,9 +56,9 @@ If a repository operation is requested:
 
 ## Required Workflow
 
-1. Read the AI Review Handoff in the Pull Request.
+1. Read the AI Review Handoff in `report.md`.
 2. Verify that this is the referenced Reviewer Contract.
-3. Read the Source Issue.
+3. Read `spec.md`.
 4. Review:
    - Goal
    - Background
@@ -66,14 +66,15 @@ If a repository operation is requested:
    - Acceptance Criteria
    - Verification Gates
    - Out of Scope
-5. Review the actual Pull Request changes.
-6. Compare the implementation against the approved Issue.
+5. Review the actual diff on the task branch (`git diff` against the branch point, or the range
+   the task branch introduced).
+6. Compare the implementation against the approved `spec.md`.
 7. Evaluate architecture, regressions, security, and verification.
-8. Produce the review result.
-9. Apply the appropriate workflow label.
+8. Produce the review result in `review.md`.
+9. Update `status.md` with the appropriate workflow state.
 
-Review a requested-change Pull Request again only after a new commit has been pushed, except when
-a Product Owner decision recorded on the Source Issue explicitly triggers `review:resume`.
+Review a requested-change task again only after a new commit has been pushed to the task branch,
+except when a Product Owner decision recorded in the task folder explicitly triggers `review:resume`.
 
 ---
 
@@ -103,7 +104,7 @@ If the project has a local shared-state `summary.md` (auto-created by gh-relay o
 
 Do not create review comments based on assumptions.
 
-Publish the complete review and every REQUIRED finding on the Pull Request. A review result must
+Publish the complete review and every REQUIRED finding in `review.md`. A review result must
 identify the next owner when it cannot proceed: Developer for an implementation fix, Product Owner
 for an approved-scope ambiguity, or Human for an external decision.
 
@@ -170,21 +171,20 @@ Examples:
 
 ---
 
-## Label Transition Rules
+## State Transition Rules
 
-Review the current Pull Request labels and leave exactly one workflow state label.
+Read the current `status.md` and leave exactly one current `State` value, preserving any
+`Review-Round` value the rule below requires.
 
-Do not use AI product names or model names as workflow labels.
-
-Reviewer outcome labels:
+Reviewer outcome states:
 
 - APPROVED → `merge:ready`
 - Required code change → `develop:resume` plus the next `review:round-N`
-- Source Issue ambiguity → `review:clarify`
+- Task Spec ambiguity → `review:clarify`
 - Technical or external blocker → `work:blocked`
 
-For a Source Issue ambiguity, do not consume a review-change cycle. The full label taxonomy,
-including the three-cycle limit, is defined in `docs/workflow-labels.md`.
+For a Task Spec ambiguity, do not consume a review-change cycle. The full state taxonomy,
+including the three-cycle limit, is defined in `docs/task-status.md`.
 
 The Reviewer never decides which Developer profile or AI model should execute the next task.
 
@@ -192,10 +192,10 @@ Workflow routing is the responsibility of the orchestration system.
 
 ## Clarification Handoff
 
-If review cannot proceed because the Source Issue is ambiguous, provide a concise Product Owner
-handoff with the blocking question, PR and Issue evidence, the affected criterion, and safe options.
-Do not convert an ambiguity into a speculative REQUIRED finding. Wait for the recorded Source Issue
-decision or approved revised Issue, then review the applicable new commit.
+If review cannot proceed because `spec.md` is ambiguous, provide a concise Product Owner
+handoff with the blocking question, `report.md` and `spec.md` evidence, the affected criterion, and safe options.
+Do not convert an ambiguity into a speculative REQUIRED finding. Wait for the recorded decision in
+the task folder or approved revised `spec.md`, then review the applicable new commit.
 
 ---
 
@@ -204,8 +204,8 @@ decision or approved revised Issue, then review the applicable new commit.
 Stop immediately when:
 
 - this contract cannot be read;
-- the Source Issue cannot be identified;
-- the Pull Request cannot be reviewed;
+- `spec.md` cannot be identified;
+- the task branch changes cannot be reviewed;
 - implementation evidence is unavailable;
 - required verification cannot be confirmed.
 
@@ -213,7 +213,7 @@ Stop immediately when:
 
 ## Review Output Format
 
-Every review should follow this format.
+`review.md` should follow this format.
 
 ```markdown
 # Review Summary
@@ -254,7 +254,7 @@ Every review should follow this format.
 
 ## Next Workflow State
 
-Label:
+State:
 
 - merge:ready
 - develop:resume + review:round-N
@@ -269,12 +269,12 @@ Label:
 Before completing the review, confirm:
 
 - Contract followed
-- Source Issue reviewed
-- Pull Request reviewed
+- Task Spec reviewed
+- Task branch changes reviewed
 - Acceptance Criteria verified
 - Verification Gates reviewed
 - Review severity assigned
 - Next workflow state selected
-- Workflow label determined
+- `status.md` updated
 
 Only then is the review considered complete.

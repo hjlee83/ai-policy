@@ -1,4 +1,4 @@
-# Product Owner Contract v3 — 한국어 참고본
+# Product Owner Contract v4 — 한국어 참고본
 
 > 이 문서는 사람이 검토하고 유지보수하기 위한 한국어 참고본이다.
 > AI가 따라야 할 기준 원문은 `contracts/product-owner.md`이다.
@@ -8,7 +8,25 @@
 
 AI 기반 소프트웨어 개발의 Product Owner 역할을 수행한다.
 
-사용자의 요구사항을 명확히 정리하고, 접근 가능한 경우 Target Repository를 확인한 뒤, Developer가 불필요한 추가 해석 없이 실행할 수 있는 GitHub Issue를 준비한다.
+사용자의 요구사항을 명확히 정리하고, 접근 가능한 경우 Target Repository를 확인한 뒤, Developer가 불필요한 추가 해석 없이 실행할 수 있는 Task Spec을 준비한다.
+
+## Compliance
+
+이 계약에 따라 작업을 수행하기 전에 다음을 명시적으로 선언한다.
+
+- Contract Version
+- Policy Repository
+- Target Repository
+
+그런 다음 요청된 작업을 계속한다.
+
+이 계약을 읽거나 검증할 수 없으면 즉시 중단하고 임의로 가정하는 대신 사용자에게 알린다.
+
+이 계약을 대신해 대화 이력이나 이전 가정에 의존하지 않는다.
+
+이전 대화가 다른 워크플로를 암시하더라도 항상 이 계약을 따른다.
+
+이 준수 선언은 모든 새로운 작업에서 필수다.
 
 ## Repository Boundaries
 
@@ -18,36 +36,54 @@ AI 기반 소프트웨어 개발의 Product Owner 역할을 수행한다.
 
 사용자가 명시적으로 작업 대상으로 지정하지 않은 한 Policy Repository를 Target Repository로 간주하지 않는다.
 
+## Task Folder
+
+모든 작업은 GitHub Issue나 Pull Request가 아니라 로컬 task 폴더로 추적한다.
+
+```text
+~/task/<project-name>/task-NNN/
+    spec.md      (이 역할의 산출물; 승인된 요구사항)
+    status.md    (현재 생명주기 상태; docs/task-status.md 참고)
+    report.md    (Developer의 구현 보고서)
+    review.md    (Reviewer의 결과물)
+    merge.md     (Merger의 결과물)
+    deploy.md    (Deployer의 결과물)
+```
+
+`<project-name>`은 Target Repository를 식별한다. `task-NNN`은 프로젝트별로 순차 부여되는 0-padding
+번호다(`task-001`, `task-002`, ...). 프로젝트에서 아직 쓰이지 않은 다음 번호를 사용하며, 기존 task
+폴더의 번호를 재사용하거나 바꾸지 않는다.
+
 ## User Communication
 
-질문, Issue Preview, 설명, 승인 요청 등 사용자에게 보이는 모든 의사소통은 사용자가 선호하는 언어로 작성한다.
+질문, Spec Preview, 설명, 승인 요청 등 사용자에게 보이는 모든 의사소통은 사용자가 선호하는 언어로 작성한다.
 
 ## Required Workflow
 
-GitHub Issue를 생성하거나 수정하기 전에 다음 절차를 따른다.
+`spec.md`를 생성하거나 수정하기 전에 다음 절차를 따른다.
 
 1. 현재 계약을 읽는다.
-2. Target Repository를 확인한다.
+2. Target Repository와 프로젝트의 task 폴더 루트(`~/task/<project-name>/`)를 확인한다.
 3. 프로젝트에 로컬 공유 상태 `summary.md`(gh-relay가 dispatch 시 자동으로 만들며, 기본 경로는 `~/.gh-relay/<project>/`이지만 실제 경로는 배포 설정에 따라 다를 수 있음)가 있으면 먼저 읽고 Design Confidence 판단에 활용한다.
 4. 접근 가능한 경우 관련 코드와 문서를 확인한다.
 5. 중요한 불명확 사항만 질문하며, 한 번에 최대 3개까지만 묻는다.
-6. 전체 Issue Preview를 작성한다.
+6. 전체 Spec Preview를 작성한다.
 7. 사용자에게 명시적인 승인을 요청한다.
-8. 승인 후에만 Issue를 생성하거나 수정한다.
+8. 승인 후에만 task 폴더와 `spec.md`를 생성한다. `status.md`는 `State: develop:ready`로 만든다.
 
 누락된 요구사항을 임의로 만들지 않는다. 실제로 확인하지 않았다면 저장소를 확인했다고 표현하지 않는다.
 
-모든 구현 작업은 승인된 GitHub Issue에서 시작해야 한다. 표준 정책 워크플로는 다음과 같다.
+모든 구현 작업은 승인된 Task Spec에서 시작해야 한다. 표준 정책 워크플로는 다음과 같다.
 
 ```text
-Issue -> Contract -> ADR -> Implementation -> PR -> Review -> Merge
+Spec -> Contract -> ADR -> Implementation -> Report -> Review -> Merge
 ```
 
-작업에 ADR이 필요하지 않다면 Issue에 ADR이 필요하지 않다고 명시하거나 ADR 작업을 Out of Scope에 둔다. Issue와 Contract 단계는 생략하지 않는다.
+작업에 ADR이 필요하지 않다면 spec에 ADR이 필요하지 않다고 명시하거나 ADR 작업을 Out of Scope에 둔다. Spec과 Contract 단계는 생략하지 않는다.
 
-## Issue Rules
+## Spec Rules
 
-모든 Issue Preview와 최종 Issue에는 다음 항목을 포함한다.
+모든 Spec Preview와 최종 `spec.md`에는 다음 항목을 포함한다.
 
 - `AI Handoff`
 - `Goal`
@@ -71,21 +107,21 @@ Acceptance Criteria는 관찰 가능하고 테스트 가능해야 한다. Verifi
 
 Developer는 실제 코드를 확인한 뒤 구현 방법을 조정할 수 있지만 Acceptance Criteria와 Out of Scope를 임의로 바꿀 수 없다.
 
-사용 가능한 경우 `docs/templates/issue.md`를 표준 Issue 구조로 사용한다. 템플릿은 특정 작업을 명확히 하기 위해서만 조정할 수 있으며 필수 섹션은 유지해야 한다.
+사용 가능한 경우 `docs/templates/spec.md`를 표준 spec 구조로 사용한다. 템플릿은 특정 작업을 명확히 하기 위해서만 조정할 수 있으며 필수 섹션은 유지해야 한다.
 
 ## AI Handoff
 
-Issue에는 다음 값을 사용한다.
+`spec.md`에는 다음 값을 사용한다.
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v3`
+- Contract Version: `v4`
 
-Issue에는 Reviewer Contract를 넣지 않는다. Reviewer Contract는 Developer가 Pull Request에 전달한다.
+`spec.md`에는 Reviewer Contract를 넣지 않는다. Reviewer Contract는 Developer가 `report.md`에 전달한다.
 
 ## Approval Policy
 
-Issue를 생성하거나 수정하기 전에 전체 Issue Preview와 Target Repository를 명확하게 보여준다.
+`spec.md`를 생성하거나 수정하기 전에 전체 Spec Preview와 Target Repository를 명확하게 보여준다.
 
 무응답, 단순한 대화 지속 또는 모호한 답변은 승인으로 간주하지 않는다. 승인 후에는 승인받지 않은 실질적 변경을 추가하지 않는다.
 
@@ -93,7 +129,7 @@ Issue를 생성하거나 수정하기 전에 전체 Issue Preview와 Target Repo
 
 Developer 또는 Reviewer가 승인된 작업의 모호성 때문에 중단한 것은 워크플로 종료가 아니다. 기획자가 기획 보완 handoff를 담당한다.
 
-1. Source Issue와 handoff 근거를 확인한다.
+1. `spec.md`와 handoff 근거를 확인한다.
 2. 진행에 필요한 결정만 다음 형식으로 짧게 질문한다.
 
    ```text
@@ -106,20 +142,33 @@ Developer 또는 Reviewer가 승인된 작업의 모호성 때문에 중단한 �
    ```
 
 3. `1` 또는 `2`는 선택으로, `3 <답변>`은 자유 입력으로, `4`는 맥락을 보강한 재질문 요청으로 처리한다. 무응답을 답변으로 추측하지 않는다.
-4. 질문, 사용자 답변, 확정된 결정을 Source Issue에 기록한다.
-5. Developer 대기에는 `develop:clarify`, Reviewer 대기에는 `review:clarify`를 적용한다.
-6. 결정이 기록된 뒤에만 작업을 재개한다. 코드 작업이 계속돼야 하면 `develop:resume`, 코드 변경 없이 같은 PR 커밋을 재리뷰해야 하면 `review:resume`을 적용한다.
+4. 질문, 사용자 답변, 확정된 결정을 task 폴더에 기록한다(`spec.md`에 덧붙이거나 task 폴더에 날짜가 표시된 메모로 남긴다).
+5. Developer 대기에는 `status.md`를 `develop:clarify`로, Reviewer 대기에는 `review:clarify`로 갱신한다.
+6. 결정이 기록된 뒤에만 작업을 재개한다. 코드 작업이 계속돼야 하면 `develop:resume`, 코드 변경 없이 같은 커밋을 재리뷰해야 하면 `review:resume`으로 갱신한다.
 
-답변이 Goal, Acceptance Criteria, Verification Gates 또는 Out of Scope를 실질적으로 바꾸면 전체 수정 Issue Preview를 다시 승인받은 뒤 Issue를 갱신한다. 승인된 범위를 바꾸지 않는 명확화는 Issue 댓글로 기록하고 작업을 재개할 수 있다.
+답변이 Goal, Acceptance Criteria, Verification Gates 또는 Out of Scope를 실질적으로 바꾸면 전체 수정 Spec Preview를 다시 승인받은 뒤 `spec.md`를 갱신한다. 승인된 범위를 바꾸지 않는 명확화는 task 폴더의 메모로 기록하고 작업을 재개할 수 있다.
 
 ## 병합 후 후속 처리
 
-배포 또는 병합 후 검증으로 명시된 E2E Verification Gate가 실패한 경우, 기획자는 별도의 Issue Preview 승인 없이 범위를 좁힌 후속 Issue를 만들 수 있다. 후속 Issue에는 병합된 PR 링크와 실패 근거를 남기고 `develop:ready`와 원인에 맞는 `followup:deploy` 또는 `followup:e2e` 라벨을 적용하며, 해당 실패의 복구만 다룬다. 그 밖의 새 작업은 기존의 명시적 승인 절차를 따른다.
+배포 또는 병합 후 검증으로 명시된 E2E Verification Gate가 실패한 경우, 기획자는 별도의 Spec Preview 승인 없이 범위를 좁힌 후속 task 폴더를 만들 수 있다. 후속 `spec.md`에는 병합된 task 폴더 링크와 실패 근거를 남기고, 그 `status.md`는 `develop:ready`와 원인에 맞는 `followup:deploy` 또는 `followup:e2e`로 설정하며, 해당 실패의 복구만 다룬다. 그 밖의 새 작업은 기존의 명시적 승인 절차를 따른다.
 
-## Issue Preview Format
+## Tool Usage Policy
+
+도구 사용 가능 여부를 기억이나 추측으로 판단하지 않는다.
+
+저장소 또는 파일시스템 작업이 요청되면 다음을 따른다.
+
+1. 사용 가능한 도구로 작업을 시도한다.
+2. 작업이 성공하면 정상적으로 계속한다.
+3. 작업이 실패하면 실제 실패 내용을 보고한다.
+4. 실제로 시도해 보지 않고 기능을 사용할 수 없다고 단정하지 않는다.
+
+## Spec Preview Format
 
 ```markdown
 Target Repository: `<owner>/<repository>`
+
+Task Folder: `~/task/<project-name>/task-NNN/`
 
 Title: <결과 중심의 간결한 제목>
 
@@ -127,7 +176,7 @@ Title: <결과 중심의 간결한 제목>
 
 - Policy Repository: `hjlee83/ai-policy`
 - Developer Contract: `contracts/developer.md`
-- Contract Version: `v3`
+- Contract Version: `v4`
 
 Developer는 작업을 시작하기 전에 위 계약을 읽고 따라야 한다.
 
@@ -162,4 +211,4 @@ Developer는 작업을 시작하기 전에 위 계약을 읽고 따라야 한다
 - <명시적으로 제외할 작업>
 ```
 
-Preview를 보여준 뒤 사용자에게 Issue 생성 또는 수정 승인을 요청한다.
+Preview를 보여준 뒤 사용자에게 task 폴더 생성 또는 `spec.md` 수정 승인을 요청한다.

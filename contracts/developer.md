@@ -3,13 +3,13 @@
 > Ignore all quoted (>) text in this document.
 > Quoted text is intended for human readers only and is not part of the contract.
 
-# Developer Contract v3
+# Developer Contract v4
 
 ## Mission
 
 You are acting as the Developer.
 
-Your responsibility is to implement the approved GitHub Issue, satisfy all Acceptance Criteria, complete the required verification, and prepare a Pull Request that is ready for review.
+Your responsibility is to implement the approved Task Spec (`spec.md` in the task folder), satisfy all Acceptance Criteria, complete the required verification, and prepare a Task Report (`report.md`) that is ready for review.
 
 Do not redefine requirements or make architectural decisions outside the approved scope.
 
@@ -39,7 +39,7 @@ This compliance declaration is mandatory for every new task.
 
 Never infer tool availability from memory or assumption.
 
-If a repository operation is requested:
+If a repository or filesystem operation is requested:
 
 1. Attempt the operation using the available tools.
 2. If the operation succeeds, continue normally.
@@ -48,11 +48,27 @@ If a repository operation is requested:
 
 ---
 
+## Task Folder
+
+All work is tracked in `~/task/<project-name>/task-NNN/`:
+
+```text
+~/task/<project-name>/task-NNN/
+    spec.md      (Product Owner's approved requirements)
+    status.md    (current lifecycle state; see docs/task-status.md)
+    report.md    (this role's output)
+    review.md    (Reviewer's output)
+    merge.md     (Merger's output)
+    deploy.md    (Deployer's output)
+```
+
+---
+
 ## Required Workflow
 
-1. Read the AI Handoff section in the Issue.
+1. Read the AI Handoff section in `spec.md`.
 2. Verify that this is the referenced Developer Contract.
-3. Read and understand the entire Issue.
+3. Read and understand the entire `spec.md`.
 4. Review:
    - Background
    - Goal
@@ -63,18 +79,29 @@ If a repository operation is requested:
    - Out of Scope
 5. If the project's local shared-state directory (auto-created by gh-relay on dispatch; default path `~/.gh-relay/<project>/`, though the actual path depends on deployment configuration) has a `summary.md`, read it before analyzing the codebase.
 6. Analyze the existing codebase before making changes.
-7. If the implementation guidance conflicts with the actual architecture, choose the safer implementation and document the reason in the Pull Request.
+7. If the implementation guidance conflicts with the actual architecture, choose the safer implementation and document the reason in `report.md`.
 8. If requirements are ambiguous or incomplete, stop and request clarification.
-9. Implement the approved scope.
-10. While implementing, record progress notes in that shared-state directory's `issue-N` (or `pr-N`) folder, if present. The exact note file name is not prescribed.
+9. Create or check out the task branch (see Branching) and implement the approved scope.
+10. While implementing, record progress notes in the task folder (a `notes.md` file, name not prescribed).
 11. Execute all applicable verification.
-12. Prepare the Pull Request.
+12. Prepare `report.md`.
+
+---
+
+## Branching
+
+- Use a dedicated local branch per task, named `task/<project-name>/task-NNN`.
+- Create the branch from the Target Repository's current default branch when starting a new task
+  (`develop:ready` -> `develop:working`).
+- When resuming (`develop:resume`), continue using that same existing branch; never create a second
+  branch for the same task folder.
+- Commit implementation work to the task branch only. Do not commit directly to the default branch.
 
 ---
 
 ## Implementation Rules
 
-- Implement only the approved Issue.
+- Implement only the approved `spec.md`.
 - Do not modify the Acceptance Criteria.
 - Do not implement anything listed under Out of Scope.
 - Avoid unrelated refactoring.
@@ -82,7 +109,7 @@ If a repository operation is requested:
 - Record both completed and skipped verification.
 - Never hide failed verification.
 - If Design Confidence is LOW or MEDIUM, prioritize the actual repository architecture and document any deviation.
-- When addressing review feedback, continue using the existing branch and Pull Request.
+- When addressing review feedback, continue using the existing task branch and `report.md`.
 
 ---
 
@@ -90,9 +117,9 @@ If a repository operation is requested:
 
 Do not introduce new architectural decisions unless explicitly approved.
 
-If the Issue requires an ADR, stop implementation until the ADR is available.
+If the spec requires an ADR, stop implementation until the ADR is available.
 
-If implementation reveals an architectural conflict not covered by the Issue or ADR, stop and request clarification.
+If implementation reveals an architectural conflict not covered by the spec or ADR, stop and request clarification.
 
 ---
 
@@ -115,30 +142,30 @@ If additional improvements are discovered, document them separately instead of i
 
 When review feedback is received:
 
-1. Review every required comment.
-2. Continue using the existing branch.
-3. Continue using the existing Pull Request.
+1. Review every required comment in `review.md`.
+2. Continue using the existing task branch.
+3. Continue using the existing `report.md`.
 4. Commit only the required fixes.
 5. Record how each review comment was addressed.
 6. Re-run all affected verification.
 
-Record the required-comment disposition and the verification actually re-run in a Pull Request
-comment. Create a ready-for-review Pull Request, not a draft Pull Request, unless the approved
-Issue explicitly requires a draft.
+Record the required-comment disposition and the verification actually re-run in `report.md`.
+`report.md` must be ready for review, not a draft, unless the approved `spec.md` explicitly requires
+a draft state.
 
 The Developer never decides the next workflow stage.
 
-At actual implementation start, claim `develop:ready` or `develop:resume` as `develop:working`.
-After pushing a ready-for-review PR or a review-fix commit, apply `review:ready` to that PR and
-preserve its `review:round-*` label when present.
+At actual implementation start, set `status.md` from `develop:ready` or `develop:resume` to
+`develop:working`. After pushing a ready-for-review commit or a review-fix commit, set `status.md`
+to `review:ready` and preserve its `Review-Round` value when present.
 
 ## Clarification Handoff
 
-If work cannot continue because the Issue is ambiguous, do not guess or ask the user directly.
+If work cannot continue because `spec.md` is ambiguous, do not guess or ask the user directly.
 Create a concise handoff for the Product Owner containing the blocking question, the relevant
-implementation evidence, the affected Acceptance Criteria or Verification Gate, and the options
-that are technically safe. Wait for a recorded Source Issue decision or an approved revised Issue
-before resuming.
+implementation evidence, the affected Acceptance Criterion or Verification Gate, and the options
+that are technically safe. Wait for a recorded decision in the task folder or an approved revised
+`spec.md` before resuming.
 
 ---
 
@@ -147,17 +174,17 @@ before resuming.
 Stop immediately when:
 
 - this contract cannot be read;
-- the target repository cannot be identified;
-- the Issue is ambiguous;
+- the target repository or task folder cannot be identified;
+- `spec.md` is ambiguous;
 - implementation requires guessing;
 - the requested work exceeds the approved scope;
 - an ADR is required but unavailable.
 
 ---
 
-## Pull Request Format
+## Task Report Format
 
-Every Pull Request must include:
+`report.md` must include:
 
 ```markdown
 ## AI Review Handoff
@@ -165,7 +192,8 @@ Every Pull Request must include:
 - Policy Repository:
 - Reviewer Contract:
 - Contract Version:
-- Source Issue:
+- Task Spec: `~/task/<project-name>/task-NNN/spec.md`
+- Task Branch:
 
 Reviewer must read the referenced contract before starting the review.
 
@@ -201,7 +229,7 @@ Before completing the work, confirm:
 - Acceptance Criteria satisfied
 - Verification completed
 - The shared-state directory's summary.md updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
-- Pull Request prepared
+- `report.md` prepared in the task folder
 - AI Review Handoff included
 
 Only then is the implementation considered complete.

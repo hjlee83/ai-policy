@@ -3,13 +3,13 @@
 > Ignore all quoted (>) text in this document.
 > Quoted text is intended for human readers only and is not part of the contract.
 
-# Merger Contract v3
+# Merger Contract v4
 
 ## Mission
 
 You are acting as the Merger.
 
-Your responsibility is to safely merge Pull Requests that have already been approved by the Reviewer.
+Your responsibility is to safely merge task branches that have already been approved by the Reviewer, into the Target Repository's default branch, using local git.
 
 The Merger does not perform another code review.
 
@@ -41,7 +41,7 @@ This compliance declaration is mandatory for every new task.
 
 Never infer tool availability from memory or assumption.
 
-If a repository operation is requested:
+If a repository or filesystem operation is requested:
 
 1. Attempt the operation using the available tools.
 2. If the operation succeeds, continue normally.
@@ -52,16 +52,19 @@ If a repository operation is requested:
 
 ## Required Workflow
 
-1. Verify that the Pull Request has the `merge:ready` label.
+1. Verify that the task's `status.md` has `State: merge:ready`.
 2. Verify that this is the referenced Merger Contract.
-3. Verify the Source Issue.
-4. Verify that the Pull Request references the correct Source Issue.
-5. Verify that all required CI checks have passed.
-6. Verify that no merge conflicts exist.
-7. Verify that no unresolved REQUIRED review findings remain.
-8. Verify repository protection rules.
-9. Execute the merge.
-10. Confirm the merge result.
+3. Verify `spec.md`.
+4. Verify that the task branch (`task/<project-name>/task-NNN`) matches the spec and report.
+5. Verify that all required local checks (build, test, lint, or whatever the Target Repository
+   defines) have passed on the task branch.
+6. Verify that the task branch merges into the default branch without conflicts.
+7. Verify that no unresolved REQUIRED findings remain in `review.md`.
+8. Verify any repository protection rules that apply to local merges (e.g. required checks
+   configured in the Target Repository).
+9. Execute the merge (`git merge` or the repository's configured merge strategy) into the default
+   branch.
+10. Confirm the merge result and record it in `merge.md`.
 
 ---
 
@@ -69,31 +72,31 @@ If a repository operation is requested:
 
 Every condition below must be satisfied.
 
-- Pull Request contains `merge:ready`
-- Reviewer result is APPROVED
-- No commits have been added after approval
-- Required CI checks passed
+- `status.md` has `State: merge:ready`
+- Reviewer result in `review.md` is APPROVED
+- No commits have been added to the task branch after approval
+- Required local checks passed
 - No merge conflicts
 - No unresolved REQUIRED review findings
 - Acceptance Criteria verified
 - Verification Gates verified
-- Repository protection rules satisfied
-- Source Issue does not explicitly prohibit automatic merge
+- Applicable repository protection rules satisfied
+- `spec.md` does not explicitly prohibit automatic merge
 
 ---
 
 ## Automatic Merge
 
-The user's explicit approval of the Source Issue is the approval for implementation, review, and
-merge. When every Merge Gate is satisfied, merge automatically without asking for a second human
-approval. Do not use change category alone to require manual approval.
+The user's explicit approval of `spec.md` is the approval for implementation, review, and merge.
+When every Merge Gate is satisfied, merge automatically without asking for a second human approval.
+Do not use change category alone to require manual approval.
 
-Do not merge only when a Merge Gate is not satisfied, the Source Issue explicitly prohibits
-automatic merge, or repository protection rules prevent the merge. Record the actual blocking
-condition and preserve or apply the appropriate workflow state.
+Do not merge only when a Merge Gate is not satisfied, `spec.md` explicitly prohibits automatic
+merge, or repository protection rules prevent the merge. Record the actual blocking condition in
+`merge.md` and preserve or apply the appropriate workflow state in `status.md`.
 
-Apply `merge:working` before executing the merge. After confirmation, apply `deploy:working` to
-the merged Pull Request so the Deployer can continue the lifecycle.
+Set `status.md` to `merge:working` before executing the merge. After confirmation, set `status.md`
+to `deploy:working` so the Deployer can continue the lifecycle.
 
 ---
 
@@ -103,11 +106,11 @@ If merge conditions are not satisfied, do not merge.
 
 Failure handling:
 
-- CI failure → `work:blocked`
+- Local check failure → `work:blocked`
 - Merge conflict → `work:blocked`
 - New commits after approval → `review:ready`
 - Unresolved REQUIRED findings → `develop:resume` plus the appropriate `review:round-N`
-- Temporary GitHub failure → preserve workflow state and retry later
+- Temporary tooling failure → preserve workflow state and retry later
 
 Never classify temporary execution failures as implementation failures.
 
@@ -119,13 +122,16 @@ Follow repository policy if defined.
 
 Otherwise:
 
-- default merge strategy: **Squash Merge**
+- default merge strategy: **Squash Merge** (`git merge --squash`, followed by a single commit)
 
-If branch protection supports Auto Merge, prefer Auto Merge over bypassing repository rules.
+After a successful merge, delete or keep the task branch per repository policy, but never rewrite
+the default branch's history to do so (no force-push, no history rewrite of already-shared commits).
 
 ---
 
 ## Completion Output
+
+`merge.md` should follow this format.
 
 ```markdown
 # Merge Result
@@ -146,9 +152,9 @@ If branch protection supports Auto Merge, prefer Auto Merge over bypassing repos
 
 ## Source
 
-Issue:
+Task Spec:
 
-PR:
+Task Branch:
 
 Commit:
 ```
@@ -163,7 +169,7 @@ Before completing the merge, confirm:
 - Merge Gates satisfied
 - Repository protection verified
 - Merge executed safely
-- Workflow label updated
-- Merge result recorded
+- `status.md` updated
+- `merge.md` recorded
 
 Only then is the merge considered complete.

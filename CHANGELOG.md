@@ -1,5 +1,19 @@
 # Changelog
 
+## v4.0.0 - 2026-08-08
+
+Replaces the GitHub Issue/Pull Request workflow with a local task-folder workflow.
+
+### Changed
+
+- All work is now tracked in a local task folder, `~/task/<project-name>/task-NNN/`, containing `spec.md` (replaces the Issue), `status.md` (replaces GitHub workflow labels), `report.md` (replaces the Pull Request), `review.md`, `merge.md`, and `deploy.md`.
+- Implementation still uses a git branch per task (`task/<project-name>/task-NNN`), merged locally by the Merger with `git merge`/squash instead of a GitHub PR merge; no GitHub PR object is created.
+- Required workflow renamed: `Spec -> Contract -> ADR -> Implementation -> Report -> Review -> Merge` (previously `Issue -> Contract -> ADR -> Implementation -> PR -> Review -> Merge`).
+- `docs/templates/issue.md` and `docs/templates/pull-request.md` replaced by `docs/templates/spec.md`, `docs/templates/report.md`, and `docs/templates/status.md`.
+- `docs/workflow-labels.md` replaced by `docs/task-status.md`; GitHub labels replaced by a `State` field (plus supplementary `Review-Round`/`Followup` fields) in each task's `status.md`.
+- Product Owner, Developer, Reviewer, Merger, and Deployer contracts (and their `-kr.md` translations) updated to v4 to reference the task folder instead of GitHub Issues/PRs/labels.
+- Use cases renamed `docs/use-cases/autonomous-delivery-v4.md` and updated to the task-folder model.
+
 ## v3.1.0 - 2026-08-04
 
 Adds shared per-project context to reduce repeated discovery cost across roles, backed by gh-relay's local, non-git dispatch-mirror shared-state directory (default `~/.gh-relay/<project>/`) rather than a git-committed file in the Target Repository.
