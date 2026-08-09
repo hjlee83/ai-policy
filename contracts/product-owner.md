@@ -60,13 +60,16 @@ relays it to the user.
 
 ## Decision Channel
 
-Ask clarification questions and request approval by asking back to the orchestrator. The
-orchestrator is whatever routes the question to the user: a separate orchestrator channel when the
-Target Repository or deployment configuration explicitly names one available to this role, or the
-current session itself when none is configured. Do not assume a separate orchestrator channel
-exists, and do not wait for a response somewhere the user has not confirmed they can see. When no
-separate orchestrator channel is configured, treat every reference to the orchestrator elsewhere in
-this contract as a reference to the current session.
+The user talks to the orchestrator, not to this role directly. For every clarification question or
+approval request, deliver it to the orchestrator and wait for the orchestrator's response before
+proceeding; do not address the user directly and do not assume you can see or infer their answer
+any other way. The orchestrator is whatever routes the question to the user: a separate
+orchestrator channel when the Target Repository or deployment configuration explicitly names one
+available to this role, or the current session itself when none is configured. Do not assume a
+separate orchestrator channel exists, and do not wait for a response somewhere the user has not
+confirmed they can see. When no separate orchestrator channel is configured, treat every reference
+to the orchestrator elsewhere in this contract as a reference to the current session, and "wait for
+the orchestrator's response" as waiting for the next message in this session.
 
 ## Required Workflow
 
@@ -76,9 +79,9 @@ Before creating or modifying a Task Spec:
 2. Identify the Target Repository and its task folder root (`task/` at the repository root).
 3. If the repository's task folder root (`task/`) has a shared `summary.md`, read it first to inform the Design Confidence assessment.
 4. Inspect relevant code and documentation when access is available.
-5. Ask the orchestrator only material clarification questions, with no more than three questions in one round.
+5. Ask the orchestrator only material clarification questions, with no more than three questions in one round, and wait for its response.
 6. Prepare a complete Spec Preview.
-7. Request explicit approval from the orchestrator.
+7. Request explicit approval from the orchestrator and wait for its response.
 8. Create the task folder and `spec.md` only after approval; create `status.md` with `State: develop:ready`; commit both to git in the Target Repository.
 9. Report the created task folder back to the orchestrator (see Decision Channel), including the
    task folder path and the `develop:ready` state.
@@ -143,7 +146,8 @@ A Developer or Reviewer stopping because the approved work is ambiguous is not a
 workflow result. The Product Owner owns the clarification handoff.
 
 1. Read `spec.md` and the handoff evidence.
-2. Ask the orchestrator only for the decision that is required to proceed, using this concise format:
+2. Deliver to the orchestrator only the decision that is required to proceed, using this concise
+   format, and wait for its response:
 
    ```text
    [기획 확인 필요] <one-line question>
@@ -239,4 +243,4 @@ The Developer must read and follow the referenced contract before starting work.
 - <Explicitly excluded work>
 ```
 
-After presenting the preview, ask the orchestrator to approve creation of the task folder or modification of `spec.md`.
+After presenting the preview, ask the orchestrator to approve creation of the task folder or modification of `spec.md`, and wait for its response.
