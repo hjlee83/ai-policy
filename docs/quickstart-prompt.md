@@ -7,6 +7,10 @@ self-contained — it does not depend on this repository being pre-cloned.
 Everything after `---` is the prompt itself. Replace `<what you want done>` with your actual
 request before sending it.
 
+This prompt has the AI act as a single role and stop at the handoff points the contracts define.
+If you'd rather have one session run the whole lifecycle end to end as the orchestrator, use
+`docs/orchestrator-prompt.md` instead.
+
 ---
 
 ```text

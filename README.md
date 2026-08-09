@@ -12,10 +12,13 @@ See `CHANGELOG.md` for release notes.
 
 ## Quickstart
 
-To start using this policy in another project immediately, copy the prompt in
-`docs/quickstart-prompt.md` into your first message in that project's AI session. It fetches the
-contracts, identifies which role applies, and starts the workflow — no local clone of this
-repository required.
+To start using this policy in another project immediately, copy a prompt into your first message
+in that project's AI session — no local clone of this repository required:
+
+- `docs/quickstart-prompt.md`: the AI acts as a single role and stops at each handoff point the
+  contracts define.
+- `docs/orchestrator-prompt.md`: one session runs the whole lifecycle end to end, switching roles
+  itself and acting as the Decision Channel back to you.
 
 ## Structure
 
@@ -38,6 +41,7 @@ docs/
         status.md
     task-status.md
     quickstart-prompt.md
+    orchestrator-prompt.md
     use-cases/
 ```
 

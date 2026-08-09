@@ -6,6 +6,10 @@
 
 - `docs/quickstart-prompt.md`: a copy-paste prompt for bootstrapping this policy in any other
   project's AI session, without a local clone of this repository. Referenced from README.md.
+- `docs/orchestrator-prompt.md`: a copy-paste prompt for having one session run the whole
+  Spec-to-Deploy lifecycle itself (switching roles, acting as the Decision Channel back to the
+  user, and using raw agent IDs if it spawns subagents), instead of manually invoking one role's
+  contract at a time.
 
 ## v4.0.0 - 2026-08-08
 
