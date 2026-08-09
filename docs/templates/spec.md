@@ -1,10 +1,8 @@
 # Task Spec Template
 
-Project: `<project-name>`
-
 Task: `task-NNN`
 
-Task Folder: `~/task/<project-name>/task-NNN/`
+Task Folder: `task/task-NNN/` (at the Target Repository root; committed to git)
 
 Title: `<concise outcome-oriented title>`
 

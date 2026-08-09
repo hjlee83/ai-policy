@@ -50,10 +50,10 @@ If a repository or filesystem operation is requested:
 
 ## Task Folder
 
-All work is tracked in `~/task/<project-name>/task-NNN/`:
+All work is tracked in `task/task-NNN/`:
 
 ```text
-~/task/<project-name>/task-NNN/
+task/task-NNN/
     spec.md      (Product Owner's approved requirements)
     status.md    (current lifecycle state; see docs/task-status.md)
     report.md    (this role's output)
@@ -77,7 +77,7 @@ All work is tracked in `~/task/<project-name>/task-NNN/`:
    - Acceptance Criteria
    - Verification Gates
    - Out of Scope
-5. If the project's task folder root (`~/task/<project-name>/`) has a shared `summary.md`, read it before analyzing the codebase.
+5. If the project's task folder root (`task/`) has a shared `summary.md`, read it before analyzing the codebase.
 6. Analyze the existing codebase before making changes.
 7. If the implementation guidance conflicts with the actual architecture, choose the safer implementation and document the reason in `report.md`.
 8. If requirements are ambiguous or incomplete, stop and request clarification.
@@ -90,12 +90,15 @@ All work is tracked in `~/task/<project-name>/task-NNN/`:
 
 ## Branching
 
-- Use a dedicated local branch per task, named `task/<project-name>/task-NNN`.
+- Use a dedicated local branch per task, named `task/task-NNN`.
 - Create the branch from the Target Repository's current default branch when starting a new task
   (`develop:ready` -> `develop:working`).
 - When resuming (`develop:resume`), continue using that same existing branch; never create a second
   branch for the same task folder.
 - Commit implementation work to the task branch only. Do not commit directly to the default branch.
+- The task folder (`task/task-NNN/`) lives inside the Target Repository and is version-controlled.
+  Commit `report.md` and any other task-folder updates to the task branch along with the code
+  changes so they merge together.
 
 ---
 
@@ -192,7 +195,7 @@ Stop immediately when:
 - Policy Repository:
 - Reviewer Contract:
 - Contract Version:
-- Task Spec: `~/task/<project-name>/task-NNN/spec.md`
+- Task Spec: `task/task-NNN/spec.md`
 - Task Branch:
 
 Reviewer must read the referenced contract before starting the review.
@@ -237,7 +240,7 @@ Before completing the work, confirm:
 - Scope completed
 - Acceptance Criteria satisfied
 - Verification completed
-- The project's `~/task/<project-name>/summary.md` updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
+- The project's `task/summary.md` updated for a structurally meaningful change (module composition, data flow, or component responsibilities), or created at minimal scope if none exists and this is the first such change
 - `report.md` prepared in the task folder
 - AI Review Handoff included
 - Orchestrator notified

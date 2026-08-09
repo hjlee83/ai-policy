@@ -38,21 +38,23 @@ AI 기반 소프트웨어 개발의 Product Owner 역할을 수행한다.
 
 ## Task Folder
 
-모든 작업은 GitHub Issue나 Pull Request가 아니라 로컬 task 폴더로 추적한다.
+모든 작업은 GitHub Issue나 Pull Request가 아니라 로컬 task 폴더로 추적한다. task 폴더는 사용자 홈
+디렉토리가 아니라 Target Repository의 루트에 위치하며, 그 저장소의 다른 파일과 마찬가지로 git으로
+커밋한다.
 
 ```text
-~/task/<project-name>/task-NNN/
-    spec.md      (이 역할의 산출물; 승인된 요구사항)
-    status.md    (현재 생명주기 상태; docs/task-status.md 참고)
-    report.md    (Developer의 구현 보고서)
-    review.md    (Reviewer의 결과물)
-    merge.md     (Merger의 결과물)
-    deploy.md    (Deployer의 결과물)
+<Target Repository root>/
+    task/task-NNN/
+        spec.md      (이 역할의 산출물; 승인된 요구사항)
+        status.md    (현재 생명주기 상태; docs/task-status.md 참고)
+        report.md    (Developer의 구현 보고서)
+        review.md    (Reviewer의 결과물)
+        merge.md     (Merger의 결과물)
+        deploy.md    (Deployer의 결과물)
 ```
 
-`<project-name>`은 Target Repository를 식별한다. `task-NNN`은 프로젝트별로 순차 부여되는 0-padding
-번호다(`task-001`, `task-002`, ...). 프로젝트에서 아직 쓰이지 않은 다음 번호를 사용하며, 기존 task
-폴더의 번호를 재사용하거나 바꾸지 않는다.
+`task-NNN`은 저장소별로 순차 부여되는 0-padding 번호다(`task-001`, `task-002`, ...). 저장소에서 아직
+쓰이지 않은 다음 번호를 사용하며, 기존 task 폴더의 번호를 재사용하거나 바꾸지 않는다.
 
 ## User Communication
 
@@ -72,13 +74,13 @@ AI 기반 소프트웨어 개발의 Product Owner 역할을 수행한다.
 `spec.md`를 생성하거나 수정하기 전에 다음 절차를 따른다.
 
 1. 현재 계약을 읽는다.
-2. Target Repository와 프로젝트의 task 폴더 루트(`~/task/<project-name>/`)를 확인한다.
-3. 프로젝트의 task 폴더 루트(`~/task/<project-name>/`)에 공유 `summary.md`가 있으면 먼저 읽고 Design Confidence 판단에 활용한다.
+2. Target Repository와 그 저장소 루트의 task 폴더 루트(`task/`)를 확인한다.
+3. 저장소의 task 폴더 루트(`task/`)에 공유 `summary.md`가 있으면 먼저 읽고 Design Confidence 판단에 활용한다.
 4. 접근 가능한 경우 관련 코드와 문서를 확인한다.
 5. 중요한 불명확 사항만 질문하며, 한 번에 최대 3개까지만 묻는다.
 6. 전체 Spec Preview를 작성한다.
 7. 사용자에게 명시적인 승인을 요청한다.
-8. 승인 후에만 task 폴더와 `spec.md`를 생성한다. `status.md`는 `State: develop:ready`로 만든다.
+8. 승인 후에만 task 폴더와 `spec.md`를 생성한다. `status.md`는 `State: develop:ready`로 만든다. 둘 다 Target Repository에 git으로 커밋한다.
 9. 생성된 task 폴더를 오케스트레이터에게 보고한다(의사결정 채널 참고). task 폴더 경로와
    `develop:ready` 상태를 포함한다.
 
@@ -180,7 +182,7 @@ Developer 또는 Reviewer가 승인된 작업의 모호성 때문에 중단한 �
 ```markdown
 Target Repository: `<owner>/<repository>`
 
-Task Folder: `~/task/<project-name>/task-NNN/`
+Task Folder: `task/task-NNN/`
 
 Title: <결과 중심의 간결한 제목>
 

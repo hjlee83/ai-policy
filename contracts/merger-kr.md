@@ -55,7 +55,8 @@ Merger는 병합에 필요한 모든 조건이 충족되었는지 확인한 후 
 1. task의 `status.md`가 `State: merge:ready`인지 확인한다.
 2. 지정된 Merger Contract가 이 문서인지 확인한다.
 3. `spec.md`를 확인한다.
-4. task 브랜치(`task/<project-name>/task-NNN`)가 spec 및 report와 일치하는지 확인한다.
+4. task 브랜치(`task/task-NNN`)가 spec 및 report와 일치하는지, task 폴더(`task/task-NNN/`, Target
+   Repository 루트)가 해당 브랜치에 커밋되어 있는지 확인한다.
 5. task 브랜치에서 필요한 모든 로컬 검사(빌드, 테스트, lint 등 Target Repository가 정의한 검사)가
    통과했는지 확인한다.
 6. task 브랜치가 충돌 없이 기본 브랜치에 병합되는지 확인한다.

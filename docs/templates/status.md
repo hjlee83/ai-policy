@@ -1,6 +1,6 @@
 # Task Status Template
 
-Save as `~/task/<project-name>/task-NNN/status.md`. This file is the single source of truth for
+Save as `task/task-NNN/status.md` at the Target Repository root, and commit it to git. This file is the single source of truth for
 the task's current lifecycle state. See `docs/task-status.md` for the full state list and
 transition rules.
 
@@ -8,7 +8,6 @@ transition rules.
 # Task Status
 
 Task: task-NNN
-Project: <project-name>
 
 State: develop:ready
 Review-Round:

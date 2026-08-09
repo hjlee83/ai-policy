@@ -40,22 +40,24 @@ Each canonical contract is self-contained and must work without loading addition
 
 ## Task Folder
 
-Work is tracked in a local task folder instead of a GitHub Issue or Pull Request:
+Work is tracked in a local task folder instead of a GitHub Issue or Pull Request. The task folder
+lives at the root of the Target Repository being worked on (not under the user's home directory),
+and is committed to git like any other file in that repository:
 
 ```text
-~/task/<project-name>/
-    summary.md       (shared, project-level architecture summary; optional, maintained across tasks)
-    task-NNN/
-        spec.md       (Product Owner's approved requirements)
-        status.md     (current lifecycle state)
-        report.md     (Developer's implementation report)
-        review.md     (Reviewer's output)
-        merge.md      (Merger's output)
-        deploy.md     (Deployer's output)
+<Target Repository root>/
+    task/
+        summary.md       (shared, project-level architecture summary; optional, maintained across tasks)
+        task-NNN/
+            spec.md       (Product Owner's approved requirements)
+            status.md     (current lifecycle state)
+            report.md     (Developer's implementation report)
+            review.md     (Reviewer's output)
+            merge.md      (Merger's output)
+            deploy.md     (Deployer's output)
 ```
 
-`<project-name>` identifies the Target Repository; `task-NNN` is a sequential, zero-padded,
-per-project counter.
+`task-NNN` is a sequential, zero-padded, per-repository counter.
 
 ## Required Workflow
 

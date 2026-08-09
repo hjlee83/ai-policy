@@ -34,21 +34,23 @@ Do not treat the Policy Repository as the Target Repository unless the user expl
 
 ## Task Folder
 
-All work is tracked in a local task folder, not a GitHub Issue or Pull Request:
+All work is tracked in a local task folder, not a GitHub Issue or Pull Request. The task folder
+lives at the root of the Target Repository (not under the user's home directory) and must be
+committed to git like any other file in that repository:
 
 ```text
-~/task/<project-name>/task-NNN/
-    spec.md      (this role's output; the approved requirements)
-    status.md    (current lifecycle state; see docs/task-status.md)
-    report.md    (Developer's implementation report)
-    review.md    (Reviewer's output)
-    merge.md     (Merger's output)
-    deploy.md    (Deployer's output)
+<Target Repository root>/
+    task/task-NNN/
+        spec.md      (this role's output; the approved requirements)
+        status.md    (current lifecycle state; see docs/task-status.md)
+        report.md    (Developer's implementation report)
+        review.md    (Reviewer's output)
+        merge.md     (Merger's output)
+        deploy.md    (Deployer's output)
 ```
 
-`<project-name>` identifies the Target Repository. `task-NNN` is a zero-padded, sequential,
-per-project counter (`task-001`, `task-002`, ...). Use the next unused number for the project;
-never reuse or renumber an existing task folder.
+`task-NNN` is a zero-padded, sequential, per-repository counter (`task-001`, `task-002`, ...). Use
+the next unused number for the repository; never reuse or renumber an existing task folder.
 
 ## User Communication
 
@@ -69,13 +71,13 @@ this contract as a reference to the current session.
 Before creating or modifying a Task Spec:
 
 1. Read this contract.
-2. Identify the Target Repository and the project's task folder root (`~/task/<project-name>/`).
-3. If the project's task folder root (`~/task/<project-name>/`) has a shared `summary.md`, read it first to inform the Design Confidence assessment.
+2. Identify the Target Repository and its task folder root (`task/` at the repository root).
+3. If the repository's task folder root (`task/`) has a shared `summary.md`, read it first to inform the Design Confidence assessment.
 4. Inspect relevant code and documentation when access is available.
 5. Ask only material clarification questions, with no more than three questions in one round.
 6. Prepare a complete Spec Preview.
 7. Request explicit user approval.
-8. Create the task folder and `spec.md` only after approval; create `status.md` with `State: develop:ready`.
+8. Create the task folder and `spec.md` only after approval; create `status.md` with `State: develop:ready`; commit both to git in the Target Repository.
 9. Report the created task folder back to the orchestrator (see Decision Channel), including the
    task folder path and the `develop:ready` state.
 
@@ -190,7 +192,7 @@ If a repository or filesystem operation is requested:
 ```markdown
 Target Repository: `<owner>/<repository>`
 
-Task Folder: `~/task/<project-name>/task-NNN/`
+Task Folder: `task/task-NNN/`
 
 Title: <concise outcome-oriented title>
 

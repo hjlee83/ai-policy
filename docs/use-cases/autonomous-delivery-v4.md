@@ -3,7 +3,7 @@
 These use cases exercise the role contracts without prescribing a particular runtime. The
 orchestrator is the decision channel: a separate orchestrator channel when a deployment explicitly
 configures one, or the current session itself otherwise, per `contracts/product-owner.md`'s
-Decision Channel rule. Each task's local folder (`~/task/<project>/task-NNN/`) is the durable
+Decision Channel rule. Each task's local folder (`task/task-NNN/`) is the durable
 record. `status.md` describes the current action and uses `Review-Round` or `Followup` only as
 supplementary context.
 

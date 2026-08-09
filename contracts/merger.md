@@ -55,7 +55,8 @@ If a repository or filesystem operation is requested:
 1. Verify that the task's `status.md` has `State: merge:ready`.
 2. Verify that this is the referenced Merger Contract.
 3. Verify `spec.md`.
-4. Verify that the task branch (`task/<project-name>/task-NNN`) matches the spec and report.
+4. Verify that the task branch (`task/task-NNN`) matches the spec and report, and that the task
+   folder (`task/task-NNN/` at the Target Repository root) is committed on that branch.
 5. Verify that all required local checks (build, test, lint, or whatever the Target Repository
    defines) have passed on the task branch.
 6. Verify that the task branch merges into the default branch without conflicts.

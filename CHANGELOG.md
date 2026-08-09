@@ -6,14 +6,16 @@ Replaces the GitHub Issue/Pull Request workflow with a local task-folder workflo
 
 ### Changed
 
-- All work is now tracked in a local task folder, `~/task/<project-name>/task-NNN/`, containing `spec.md` (replaces the Issue), `status.md` (replaces GitHub workflow labels), `report.md` (replaces the Pull Request), `review.md`, `merge.md`, and `deploy.md`.
-- Implementation still uses a git branch per task (`task/<project-name>/task-NNN`), merged locally by the Merger with `git merge`/squash instead of a GitHub PR merge; no GitHub PR object is created.
+- All work is now tracked in a local task folder, `task/task-NNN/` at the Target Repository root, containing `spec.md` (replaces the Issue), `status.md` (replaces GitHub workflow labels), `report.md` (replaces the Pull Request), `review.md`, `merge.md`, and `deploy.md`. The task folder is committed to git in the Target Repository like any other file, not stored under the user's home directory, avoiding the filesystem-permission issues of a home-directory location.
+- Implementation still uses a git branch per task (`task/task-NNN`), merged locally by the Merger with `git merge`/squash instead of a GitHub PR merge; no GitHub PR object is created.
 - Required workflow renamed: `Spec -> Contract -> ADR -> Implementation -> Report -> Review -> Merge` (previously `Issue -> Contract -> ADR -> Implementation -> PR -> Review -> Merge`).
 - `docs/templates/issue.md` and `docs/templates/pull-request.md` replaced by `docs/templates/spec.md`, `docs/templates/report.md`, and `docs/templates/status.md`.
 - `docs/workflow-labels.md` replaced by `docs/task-status.md`; GitHub labels replaced by a `State` field (plus supplementary `Review-Round`/`Followup` fields) in each task's `status.md`.
 - Product Owner, Developer, Reviewer, Merger, and Deployer contracts (and their `-kr.md` translations) updated to v4 to reference the task folder instead of GitHub Issues/PRs/labels.
 - Use cases renamed `docs/use-cases/autonomous-delivery-v4.md` and updated to the task-folder model.
-- The gh-relay-specific shared-state `summary.md` (`~/.gh-relay/<project>/summary.md`) is replaced by a project-level `~/task/<project-name>/summary.md`, maintained directly by the roles instead of an external dispatch tool.
+- The gh-relay-specific shared-state `summary.md` (`~/.gh-relay/<project>/summary.md`) is replaced by `task/summary.md` at the Target Repository root, maintained directly by the roles instead of an external dispatch tool.
+- Every role now reports completion back to the orchestrator (a configured orchestrator channel, or the current session when none is configured) before considering its step finished.
+- Decision-channel and orchestrator-notification wording no longer references Slack; it always says "the orchestrator."
 
 ## v3.1.0 - 2026-08-04
 

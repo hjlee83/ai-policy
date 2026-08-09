@@ -1,7 +1,7 @@
 # Task Status v4
 
 Task status is durable, machine-readable lifecycle state stored in each task's own `status.md`
-(`~/task/<project>/task-NNN/status.md`), not in a GitHub label. The active task has one current
+(`task/task-NNN/status.md`), not in a GitHub label. The active task has one current
 `State` value. `Review-Round` and `Followup` are the only supplementary fields and may coexist with
 that state. `status.md` describes the present action, not history; the file's `History` section and
 the task folder's other files (`spec.md`, `report.md`, `review.md`, `merge.md`, `deploy.md`) record

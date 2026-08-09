@@ -50,10 +50,10 @@
 
 ## Task Folder
 
-모든 작업은 `~/task/<project-name>/task-NNN/`에서 추적한다.
+모든 작업은 `task/task-NNN/`에서 추적한다.
 
 ```text
-~/task/<project-name>/task-NNN/
+task/task-NNN/
     spec.md      (Product Owner가 승인한 요구사항)
     status.md    (현재 생명주기 상태; docs/task-status.md 참고)
     report.md    (이 역할의 산출물)
@@ -77,7 +77,7 @@
    - Acceptance Criteria
    - Verification Gates
    - Out of Scope
-5. 프로젝트의 task 폴더 루트(`~/task/<project-name>/`)에 공유 `summary.md`가 있으면 코드 분석 전에 먼저 읽는다.
+5. 프로젝트의 task 폴더 루트(`task/`)에 공유 `summary.md`가 있으면 코드 분석 전에 먼저 읽는다.
 6. 구현 전에 대상 저장소의 실제 코드를 분석한다.
 7. 구현 가이드와 실제 구조가 충돌하면 더 안전한 방향으로 구현하고 `report.md`에 이유를 기록한다.
 8. 요구사항이 모호하거나 구현에 필요한 정보가 부족하면 추측하지 말고 작업을 중단한 후 질문한다.
@@ -90,12 +90,14 @@
 
 ## 브랜치
 
-- task마다 `task/<project-name>/task-NNN`이라는 이름의 전용 로컬 브랜치를 사용한다.
+- task마다 `task/task-NNN`이라는 이름의 전용 로컬 브랜치를 사용한다.
 - 새 task를 시작할 때(`develop:ready` -> `develop:working`) Target Repository의 현재 기본 브랜치에서
   분기한다.
 - 재개(`develop:resume`)할 때는 기존 브랜치를 그대로 사용하며, 같은 task 폴더에 두 번째 브랜치를 만들지
   않는다.
 - 구현 작업은 task 브랜치에만 커밋한다. 기본 브랜치에 직접 커밋하지 않는다.
+- task 폴더(`task/task-NNN/`)는 Target Repository 내부에 있으며 버전 관리 대상이다. `report.md`를
+  비롯한 task 폴더의 변경 사항을 코드 변경과 함께 task 브랜치에 커밋해 같이 병합되게 한다.
 
 ---
 
@@ -194,7 +196,7 @@ task 폴더에 결정이 기록되거나 수정된 `spec.md`가 승인될 때까
 - Policy Repository:
 - Reviewer Contract:
 - Contract Version:
-- Task Spec: `~/task/<project-name>/task-NNN/spec.md`
+- Task Spec: `task/task-NNN/spec.md`
 - Task Branch:
 
 Reviewer는 리뷰를 시작하기 전에 위 계약을 반드시 읽고 따른다.
@@ -238,7 +240,7 @@ Repository나 배포 설정이 이 역할이 사용할 별도의 오케스트레
 - 승인된 범위 구현 완료
 - Acceptance Criteria 충족
 - Verification 완료
-- 구조(모듈 구성, 데이터 흐름, 컴포넌트 책임)에 영향을 준 변경이면 `~/task/<project-name>/summary.md`를 갱신했거나, 없고 이번이 최초의 의미 있는 구조 변경이면 최소 버전을 새로 작성했다
+- 구조(모듈 구성, 데이터 흐름, 컴포넌트 책임)에 영향을 준 변경이면 `task/summary.md`를 갱신했거나, 없고 이번이 최초의 의미 있는 구조 변경이면 최소 버전을 새로 작성했다
 - task 폴더에 `report.md` 작성 완료
 - AI Review Handoff 포함
 - 오케스트레이터에게 보고 완료
