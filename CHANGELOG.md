@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- `docs/quickstart-prompt.md`: a copy-paste prompt for bootstrapping this policy in any other
+  project's AI session, without a local clone of this repository. Referenced from README.md.
+
 ## v4.0.0 - 2026-08-08
 
 Replaces the GitHub Issue/Pull Request workflow with a local task-folder workflow.

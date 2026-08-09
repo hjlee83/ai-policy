@@ -10,6 +10,13 @@ Current stable policy: `v4.0.0`
 
 See `CHANGELOG.md` for release notes.
 
+## Quickstart
+
+To start using this policy in another project immediately, copy the prompt in
+`docs/quickstart-prompt.md` into your first message in that project's AI session. It fetches the
+contracts, identifies which role applies, and starts the workflow — no local clone of this
+repository required.
+
 ## Structure
 
 ```text
@@ -30,6 +37,7 @@ docs/
         report.md
         status.md
     task-status.md
+    quickstart-prompt.md
     use-cases/
 ```
 
