@@ -171,7 +171,9 @@ merge is finished. Report to a separate orchestrator channel when the Target Rep
 deployment configuration explicitly names one, or the current session itself when none is
 configured (see `contracts/product-owner.md`'s Decision Channel rule). Include the task folder path
 and the new `status.md` state each time; at completion, also include the merge status (MERGED /
-BLOCKED / RETRY). Do not treat the merge as finished until the completion report has been sent.
+BLOCKED / RETRY). Do not treat the merge as finished until the completion report has been sent. If
+a named delivery to the orchestrator fails, follow `contracts/product-owner.md`'s Decision Channel
+rule on delivery failure instead of dropping or endlessly retrying it.
 
 ## Completion Checklist
 

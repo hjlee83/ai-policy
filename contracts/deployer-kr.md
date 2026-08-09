@@ -28,6 +28,8 @@
    현재 세션 자체로 보고한다(`contracts/product-owner.md`의 의사결정 채널 규칙 참고). 매번 task
    폴더 경로와 새 `status.md` 상태를 포함하고, 완료 시에는 배포 상태(DEPLOYED / FAILED /
    BLOCKED)를 함께 포함한다. 완료 보고를 보내기 전까지는 배포가 끝난 것으로 취급하지 않는다.
+   오케스트레이터에게 이름으로 보낸 메시지 전달이 실패하면 조용히 버리거나 무한정 재시도하지 말고
+   `contracts/product-owner.md`의 의사결정 채널 규칙에 따른다.
 
 ## 규칙
 

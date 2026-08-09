@@ -18,6 +18,7 @@ Replaces the GitHub Issue/Pull Request workflow with a local task-folder workflo
 - Decision-channel and orchestrator-notification wording no longer references Slack; it always says "the orchestrator."
 - Every direct "ask/inform/approve with the user" instruction across all five contracts (+kr) is now routed through the orchestrator instead, consistent with the Decision Channel rule; purely descriptive mentions of "the user" (whose language, whose repository, whose final decision) are unchanged.
 - Orchestrator Notification in Developer, Reviewer, Merger, and Deployer now fires on every `status.md` state change for that role (claim, pause, stop, and completion), not only at completion.
+- Product Owner's Decision Channel rule now covers name-based delivery failure: a live Paseo test (two sibling subagents role-playing Reviewer and Product Owner) confirmed `SendMessage(to:"<name>")` is not reliable between subagents in that environment, while addressing by raw agent ID worked consistently. Every contract (+kr) now requires retrying once, then reporting the delivery failure itself as a blocker (preferring a raw ID when known) instead of dropping the message or retrying indefinitely.
 
 ## v3.1.0 - 2026-08-04
 

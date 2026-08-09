@@ -281,7 +281,8 @@ or deployment configuration explicitly names one, or the current session itself 
 configured (see `contracts/product-owner.md`'s Decision Channel rule). Include the task folder path
 and the new `status.md` state each time; at completion, also include the review result (APPROVED /
 REQUEST_CHANGES / BLOCKED). Do not treat the review as finished until the completion report has
-been sent.
+been sent. If a named delivery to the orchestrator fails, follow `contracts/product-owner.md`'s
+Decision Channel rule on delivery failure instead of dropping or endlessly retrying it.
 
 ## Completion Checklist
 

@@ -71,6 +71,13 @@ confirmed they can see. When no separate orchestrator channel is configured, tre
 to the orchestrator elsewhere in this contract as a reference to the current session, and "wait for
 the orchestrator's response" as waiting for the next message in this session.
 
+When the runtime addresses the orchestrator or another role by a name rather than a stable
+identifier (for example a multi-agent deployment where roles are separate agents), do not assume
+name-based delivery succeeds. If a named send fails or cannot be confirmed delivered, retry once;
+if it still fails, do not silently drop the message, guess, or keep retrying indefinitely — report
+the delivery failure itself as a blocker, using the most reliable identifier available (such as a
+raw agent ID) if one is known, or otherwise via the current session.
+
 ## Required Workflow
 
 Before creating or modifying a Task Spec:
