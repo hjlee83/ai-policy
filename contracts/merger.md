@@ -27,7 +27,7 @@ Before performing any work under this contract, explicitly declare:
 
 Then continue with the requested task.
 
-If this contract cannot be read or verified, stop immediately and inform the user instead of making assumptions.
+If this contract cannot be read or verified, stop immediately and inform the orchestrator instead of making assumptions.
 
 Do not rely on conversation history or previous assumptions as a substitute for this contract.
 
@@ -88,7 +88,7 @@ Every condition below must be satisfied.
 
 ## Automatic Merge
 
-The user's explicit approval of `spec.md` is the approval for implementation, review, and merge.
+The orchestrator's explicit approval of `spec.md` is the approval for implementation, review, and merge.
 When every Merge Gate is satisfied, merge automatically without asking for a second human approval.
 Do not use change category alone to require manual approval.
 
@@ -164,12 +164,14 @@ Commit:
 
 ## Orchestrator Notification
 
-When `merge.md` is recorded and `status.md` has been set, report the outcome back to the
-orchestrator: a separate orchestrator channel when the Target Repository or deployment
-configuration explicitly names one, or the current session itself when none is configured (see
-`contracts/product-owner.md`'s Decision Channel rule). Include the task folder path, the resulting
-`status.md` state, and the merge status (MERGED / BLOCKED / RETRY). Do not treat the merge as
-finished until that report has been sent.
+Notify the orchestrator immediately every time this role changes `status.md`'s `State` — before
+executing the merge (`merge:working`), on any failure (`work:blocked`, `review:ready`, or
+`develop:resume` + `review:round-N`), and at completion (`deploy:working`) — not only when the
+merge is finished. Report to a separate orchestrator channel when the Target Repository or
+deployment configuration explicitly names one, or the current session itself when none is
+configured (see `contracts/product-owner.md`'s Decision Channel rule). Include the task folder path
+and the new `status.md` state each time; at completion, also include the merge status (MERGED /
+BLOCKED / RETRY). Do not treat the merge as finished until the completion report has been sent.
 
 ## Completion Checklist
 

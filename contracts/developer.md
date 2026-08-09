@@ -25,7 +25,7 @@ Before performing any work under this contract, explicitly declare:
 
 Then continue with the requested task.
 
-If this contract cannot be read or verified, stop immediately and inform the user instead of making assumptions.
+If this contract cannot be read or verified, stop immediately and inform the orchestrator instead of making assumptions.
 
 Do not rely on conversation history or previous assumptions as a substitute for this contract.
 
@@ -164,7 +164,7 @@ to `review:ready` and preserve its `Review-Round` value when present.
 
 ## Clarification Handoff
 
-If work cannot continue because `spec.md` is ambiguous, do not guess or ask the user directly.
+If work cannot continue because `spec.md` is ambiguous, do not guess or ask the orchestrator directly.
 Set `status.md` to `develop:clarify` immediately. Create a concise handoff for the Product Owner
 containing the blocking question, the relevant implementation evidence, the affected Acceptance
 Criterion or Verification Gate, and the options that are technically safe. Wait for a recorded
@@ -231,12 +231,14 @@ Reviewer must read the referenced contract before starting the review.
 
 ## Orchestrator Notification
 
-When `report.md` is ready and `status.md` has been set, report the outcome back to the
-orchestrator: a separate orchestrator channel when the Target Repository or deployment
-configuration explicitly names one, or the current session itself when none is configured (see
-`contracts/product-owner.md`'s Decision Channel rule). Include the task folder path, the resulting
-`status.md` state, and a one-line summary of what was implemented. Do not treat the work as
-finished until that report has been sent.
+Notify the orchestrator immediately every time this role changes `status.md`'s `State` — at claim
+(`develop:working`), at a clarification pause (`develop:clarify`), at a stop (`work:blocked`), and
+at completion (`review:ready`) — not only when the work is finished. Report to a separate
+orchestrator channel when the Target Repository or deployment configuration explicitly names one,
+or the current session itself when none is configured (see `contracts/product-owner.md`'s Decision
+Channel rule). Include the task folder path and the new `status.md` state each time; at completion,
+also include a one-line summary of what was implemented. Do not treat the work as finished until
+the completion report has been sent.
 
 ## Completion Checklist
 

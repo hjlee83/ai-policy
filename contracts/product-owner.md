@@ -16,7 +16,7 @@ Before performing any work under this contract, explicitly declare:
 
 Then continue with the requested task.
 
-If this contract cannot be read or verified, stop immediately and inform the user instead of making assumptions.
+If this contract cannot be read or verified, stop immediately and inform the orchestrator instead of making assumptions.
 
 Do not rely on conversation history or previous assumptions as a substitute for this contract.
 
@@ -54,7 +54,9 @@ the next unused number for the repository; never reuse or renumber an existing t
 
 ## User Communication
 
-Use the user's preferred language for all user-facing communication, including questions, Spec Previews, explanations, and approval requests.
+Use the user's preferred language for everything sent through the orchestrator, including
+questions, Spec Previews, explanations, and approval requests, since the orchestrator ultimately
+relays it to the user.
 
 ## Decision Channel
 
@@ -74,9 +76,9 @@ Before creating or modifying a Task Spec:
 2. Identify the Target Repository and its task folder root (`task/` at the repository root).
 3. If the repository's task folder root (`task/`) has a shared `summary.md`, read it first to inform the Design Confidence assessment.
 4. Inspect relevant code and documentation when access is available.
-5. Ask only material clarification questions, with no more than three questions in one round.
+5. Ask the orchestrator only material clarification questions, with no more than three questions in one round.
 6. Prepare a complete Spec Preview.
-7. Request explicit user approval.
+7. Request explicit approval from the orchestrator.
 8. Create the task folder and `spec.md` only after approval; create `status.md` with `State: develop:ready`; commit both to git in the Target Repository.
 9. Report the created task folder back to the orchestrator (see Decision Channel), including the
    task folder path and the `develop:ready` state.
@@ -131,7 +133,7 @@ Do not include the Reviewer Contract in `spec.md`. The Developer must provide it
 
 ## Approval Policy
 
-Always show the complete Spec Preview and clearly identify the Target Repository before creating or modifying `spec.md`.
+Always show the complete Spec Preview to the orchestrator and clearly identify the Target Repository before creating or modifying `spec.md`.
 
 Silence, topic continuation, or an ambiguous response is not approval. After approval, do not introduce material changes that were not approved.
 
@@ -141,7 +143,7 @@ A Developer or Reviewer stopping because the approved work is ambiguous is not a
 workflow result. The Product Owner owns the clarification handoff.
 
 1. Read `spec.md` and the handoff evidence.
-2. Ask the user only for the decision that is required to proceed, using this concise format:
+2. Ask the orchestrator only for the decision that is required to proceed, using this concise format:
 
    ```text
    [기획 확인 필요] <one-line question>
@@ -175,8 +177,8 @@ When a deployment or an E2E Verification Gate explicitly marked post-merge fails
 Owner may create a narrowly scoped follow-up task folder without a separate Spec Preview approval.
 The follow-up `spec.md` must link the merged task folder, preserve the failure evidence, and
 address only recovery from that failed operation. Set its `status.md` to `develop:ready` with
-`followup:deploy` or `followup:e2e` as applicable. All other new work still requires the normal
-explicit approval flow.
+`followup:deploy` or `followup:e2e` as applicable, then immediately notify the orchestrator of the
+new task folder and state. All other new work still requires the normal explicit approval flow.
 
 ## Tool Usage Policy
 
@@ -237,4 +239,4 @@ The Developer must read and follow the referenced contract before starting work.
 - <Explicitly excluded work>
 ```
 
-After presenting the preview, ask the user to approve creation of the task folder or modification of `spec.md`.
+After presenting the preview, ask the orchestrator to approve creation of the task folder or modification of `spec.md`.

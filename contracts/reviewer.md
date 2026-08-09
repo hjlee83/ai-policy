@@ -31,7 +31,7 @@ Before performing any work under this contract, explicitly declare:
 
 Then continue with the requested task.
 
-If this contract cannot be read or verified, stop immediately and inform the user instead of making assumptions.
+If this contract cannot be read or verified, stop immediately and inform the orchestrator instead of making assumptions.
 
 Do not rely on conversation history or previous assumptions as a substitute for this contract.
 
@@ -273,12 +273,15 @@ State:
 
 ## Orchestrator Notification
 
-When `review.md` is ready and `status.md` has been set, report the outcome back to the
-orchestrator: a separate orchestrator channel when the Target Repository or deployment
-configuration explicitly names one, or the current session itself when none is configured (see
-`contracts/product-owner.md`'s Decision Channel rule). Include the task folder path, the resulting
-`status.md` state, and the review result (APPROVED / REQUEST_CHANGES / BLOCKED). Do not treat the
-review as finished until that report has been sent.
+Notify the orchestrator immediately every time this role changes `status.md`'s `State` — at claim
+(`review:working`), at a clarification pause (`review:clarify`), at a stop (`work:blocked`), and at
+completion (`merge:ready`, `develop:resume` + `review:round-N`, or `review:clarify`) — not only
+when the review is finished. Report to a separate orchestrator channel when the Target Repository
+or deployment configuration explicitly names one, or the current session itself when none is
+configured (see `contracts/product-owner.md`'s Decision Channel rule). Include the task folder path
+and the new `status.md` state each time; at completion, also include the review result (APPROVED /
+REQUEST_CHANGES / BLOCKED). Do not treat the review as finished until the completion report has
+been sent.
 
 ## Completion Checklist
 

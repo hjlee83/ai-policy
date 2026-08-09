@@ -16,6 +16,8 @@ Replaces the GitHub Issue/Pull Request workflow with a local task-folder workflo
 - The gh-relay-specific shared-state `summary.md` (`~/.gh-relay/<project>/summary.md`) is replaced by `task/summary.md` at the Target Repository root, maintained directly by the roles instead of an external dispatch tool.
 - Every role now reports completion back to the orchestrator (a configured orchestrator channel, or the current session when none is configured) before considering its step finished.
 - Decision-channel and orchestrator-notification wording no longer references Slack; it always says "the orchestrator."
+- Every direct "ask/inform/approve with the user" instruction across all five contracts (+kr) is now routed through the orchestrator instead, consistent with the Decision Channel rule; purely descriptive mentions of "the user" (whose language, whose repository, whose final decision) are unchanged.
+- Orchestrator Notification in Developer, Reviewer, Merger, and Deployer now fires on every `status.md` state change for that role (claim, pause, stop, and completion), not only at completion.
 
 ## v3.1.0 - 2026-08-04
 

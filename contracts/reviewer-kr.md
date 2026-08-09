@@ -31,7 +31,7 @@ Reviewer의 책임은 리뷰이다.
 
 그 후 작업을 계속 진행한다.
 
-이 계약을 읽거나 확인할 수 없다면 추측하지 말고 즉시 작업을 중단하고 사용자에게 알린다.
+이 계약을 읽거나 확인할 수 없다면 추측하지 말고 즉시 작업을 중단하고 오케스트레이터에게 알린다.
 
 이전 대화 내용이나 기존 가정을 계약의 대체 수단으로 사용하지 않는다.
 
@@ -268,11 +268,14 @@ State:
 
 ## 오케스트레이터 보고(Orchestrator Notification)
 
-`review.md`가 준비되고 `status.md`가 갱신되면 결과를 오케스트레이터에게 보고한다: Target
-Repository나 배포 설정이 이 역할이 사용할 별도의 오케스트레이터 채널을 명시적으로 지정한 경우에는
-그 채널로, 그렇지 않으면 현재 세션 자체로 보고한다(`contracts/product-owner.md`의 의사결정 채널
-규칙 참고). task 폴더 경로, 결과 `status.md` 상태, 리뷰 결과(APPROVED / REQUEST_CHANGES /
-BLOCKED)를 포함한다. 이 보고를 보내기 전까지는 리뷰가 끝난 것으로 취급하지 않는다.
+이 역할이 `status.md`의 `State`를 바꿀 때마다 — claim 시(`review:working`), 명확화로 멈출 때
+(`review:clarify`), 중단 시(`work:blocked`), 완료 시(`merge:ready`, `develop:resume` +
+`review:round-N`, 또는 `review:clarify`) — 리뷰가 끝났을 때뿐 아니라 매번 즉시 오케스트레이터에게
+알린다. Target Repository나 배포 설정이 이 역할이 사용할 별도의 오케스트레이터 채널을 명시적으로
+지정한 경우에는 그 채널로, 그렇지 않으면 현재 세션 자체로 보고한다(`contracts/product-owner.md`의
+의사결정 채널 규칙 참고). 매번 task 폴더 경로와 새 `status.md` 상태를 포함하고, 완료 시에는 리뷰
+결과(APPROVED / REQUEST_CHANGES / BLOCKED)를 함께 포함한다. 완료 보고를 보내기 전까지는 리뷰가
+끝난 것으로 취급하지 않는다.
 
 ## 완료 체크리스트
 

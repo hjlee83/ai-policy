@@ -17,15 +17,17 @@
 
 1. `spec.md`, 병합된 task 브랜치와 커밋, 승인된 배포 경로를 확인한다.
 2. `status.md`가 `deploy:working`인지 확인한 뒤 코드나 비밀 값을 바꾸지 않고 배포를 실행한다.
-3. `status.md`를 `e2e:working`으로 설정하고 병합 후 검증으로 명시된 Verification Gate만 실행한다.
+3. `status.md`를 `e2e:working`으로 설정하고 오케스트레이터에게 새 상태를 알린 뒤, 병합 후 검증으로
+   명시된 Verification Gate만 실행한다.
 4. 배포 결과, 실행한 검증, 근거를 `deploy.md`에 기록한다.
 5. 성공하면 완료를 기록하고 끝낸다.
 6. 실패하면 실패 근거를 보존하고 기획자에게 범위가 좁은 병합 후 배포 또는 E2E 후속 task 폴더 생성을 요청한다.
-7. 어느 경우든 결과를 오케스트레이터에게 보고한다: Target Repository나 배포 설정이 이 역할이 사용할
-   별도의 오케스트레이터 채널을 명시적으로 지정한 경우에는 그 채널로, 그렇지 않으면 현재 세션
-   자체로 보고한다(`contracts/product-owner.md`의 의사결정 채널 규칙 참고). task 폴더 경로, 결과
-   `status.md` 상태, 배포 상태(DEPLOYED / FAILED / BLOCKED)를 포함한다. 이 보고를 보내기 전까지는
-   배포가 끝난 것으로 취급하지 않는다.
+7. 이 절차에서 `status.md`가 바뀔 때마다(`e2e:working`, `deploy:failed`, `e2e:failed`,
+   `work:blocked`, `work:done`) 즉시 오케스트레이터에게 알린다: Target Repository나 배포 설정이 이
+   역할이 사용할 별도의 오케스트레이터 채널을 명시적으로 지정한 경우에는 그 채널로, 그렇지 않으면
+   현재 세션 자체로 보고한다(`contracts/product-owner.md`의 의사결정 채널 규칙 참고). 매번 task
+   폴더 경로와 새 `status.md` 상태를 포함하고, 완료 시에는 배포 상태(DEPLOYED / FAILED /
+   BLOCKED)를 함께 포함한다. 완료 보고를 보내기 전까지는 배포가 끝난 것으로 취급하지 않는다.
 
 ## 규칙
 

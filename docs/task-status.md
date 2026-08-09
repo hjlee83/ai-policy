@@ -66,7 +66,7 @@ Task develop:ready
 - A reviewer increments `Review-Round` only when its decision requires a code change. It replaces
   the previous round value before applying the next one.
 - At `review:round-3`, another required code change becomes
-  `review:clarify + review:round-3`; the Product Owner asks the user whether to permit another
+  `review:clarify + review:round-3`; the Product Owner asks the orchestrator whether to permit another
   correction cycle, revise the plan, or stop. Automatic code-change looping stops there.
 - A deployment failure becomes `deploy:failed`; an E2E failure becomes `e2e:failed`. The Product
   Owner creates a new task folder with `develop:ready` and respectively `followup:deploy` or
