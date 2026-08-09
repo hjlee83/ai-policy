@@ -1,12 +1,16 @@
 # Orchestrator Prompt (Paseo)
 
-Use this instead of `docs/quickstart-prompt.md` when you want a single Paseo session to run the
-whole AI Policy v4 lifecycle for you — deciding which role applies at each step, talking to you
-directly, and (optionally) spawning role subagents — rather than manually invoking one contract at
-a time.
+Paste this as your first message to have a single Paseo session run the whole AI Policy v4
+lifecycle — deciding which role applies at each step, talking to you directly, and (optionally)
+spawning role subagents when true parallelism is needed.
 
-Paste the block below as your first message. Replace `<what you want done>` with your actual
-request before sending it.
+This is the standard way to bootstrap this policy in a new project. Separate independent
+agents each waiting on their own for `status.md` to change would need something watching the
+repository and waking them up when it does; without a GitHub-hosted dispatch/CI layer doing that
+(this policy no longer depends on GitHub), nothing wakes a session that isn't actually running. A
+live orchestrator session — this prompt — is what notices the change instead.
+
+Replace `<what you want done>` with your actual request before sending it.
 
 ---
 

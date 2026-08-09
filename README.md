@@ -12,13 +12,13 @@ See `CHANGELOG.md` for release notes.
 
 ## Quickstart
 
-To start using this policy in another project immediately, copy a prompt into your first message
-in that project's AI session — no local clone of this repository required:
-
-- `docs/quickstart-prompt.md`: the AI acts as a single role and stops at each handoff point the
-  contracts define.
-- `docs/orchestrator-prompt.md`: one session runs the whole lifecycle end to end, switching roles
-  itself and acting as the Decision Channel back to you.
+To start using this policy in another project immediately, copy the prompt in
+`docs/orchestrator-prompt.md` into your first message in that project's AI session — no local
+clone of this repository required. One session runs the whole lifecycle end to end, switching
+roles itself as `status.md` changes and acting as the Decision Channel back to you. This is the
+standard entry point: separate agents each independently watching a task folder for changes would
+need something to wake them up when `status.md` changes, and this policy has no GitHub-hosted
+dispatch/CI layer doing that.
 
 ## Structure
 
@@ -40,7 +40,6 @@ docs/
         report.md
         status.md
     task-status.md
-    quickstart-prompt.md
     orchestrator-prompt.md
     use-cases/
 ```

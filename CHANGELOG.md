@@ -4,12 +4,20 @@
 
 ### Added
 
-- `docs/quickstart-prompt.md`: a copy-paste prompt for bootstrapping this policy in any other
-  project's AI session, without a local clone of this repository. Referenced from README.md.
-- `docs/orchestrator-prompt.md`: a copy-paste prompt for having one session run the whole
-  Spec-to-Deploy lifecycle itself (switching roles, acting as the Decision Channel back to the
-  user, and using raw agent IDs if it spawns subagents), instead of manually invoking one role's
-  contract at a time.
+- `docs/orchestrator-prompt.md`: a copy-paste prompt for bootstrapping this policy in any other
+  project's AI session. One session reads the contracts, runs the whole Spec-to-Deploy lifecycle
+  itself (switching roles as `status.md` changes), and acts as the Decision Channel back to the
+  user directly. Referenced from README.md.
+
+### Removed
+
+- `docs/quickstart-prompt.md` (added and removed in this same unreleased cycle). It assumed
+  separate role agents could coordinate asynchronously by each independently noticing
+  `status.md` changes in the git-committed task folder — but with no GitHub-hosted dispatch/CI
+  watching the repository for those changes (this policy is no longer GitHub-dependent), nothing
+  actually wakes a separate agent when the state it's waiting on changes. Live handoff requires a
+  session that's actually running to notice the change, which is what `docs/orchestrator-prompt.md`
+  is for.
 
 ## v4.0.0 - 2026-08-08
 
