@@ -5,9 +5,11 @@
 ### Added
 
 - `docs/orchestrator-prompt.md`: a copy-paste prompt for bootstrapping this policy in any other
-  project's AI session. One session reads the contracts, runs the whole Spec-to-Deploy lifecycle
-  itself (switching roles as `status.md` changes), and acts as the Decision Channel back to the
-  user directly. Referenced from README.md.
+  project's AI session. One session reads the contracts and acts as orchestrator: by default it
+  runs the whole Spec-to-Deploy lifecycle itself (switching roles as `status.md` changes) and acts
+  as the Decision Channel back to the user directly, but it can also spawn and actively coordinate
+  separate live agents per role (addressed by raw agent ID, per the delivery-failure finding from
+  the earlier handoff test) when true multi-agent execution is wanted. Referenced from README.md.
 
 ### Removed
 

@@ -1,14 +1,15 @@
 # Orchestrator Prompt (Paseo)
 
-Paste this as your first message to have a single Paseo session run the whole AI Policy v4
-lifecycle — deciding which role applies at each step, talking to you directly, and (optionally)
-spawning role subagents when true parallelism is needed.
+Paste this as your first message to bootstrap this policy in a new project. It puts one Paseo
+session in charge as the orchestrator: by default it works through every role itself, but it can
+just as well spawn and actively coordinate separate live agents per role (Product Owner, Developer,
+Reviewer, ...) — including different models or providers — when you want that. See step 4 below.
 
-This is the standard way to bootstrap this policy in a new project. Separate independent
-agents each waiting on their own for `status.md` to change would need something watching the
-repository and waking them up when it does; without a GitHub-hosted dispatch/CI layer doing that
-(this policy no longer depends on GitHub), nothing wakes a session that isn't actually running. A
-live orchestrator session — this prompt — is what notices the change instead.
+What this prompt does not support is separate agents each independently waiting on their own,
+noticing `status.md` change on a schedule and picking up work unprompted. That requires something
+watching the repository and waking each one up — which is what a GitHub-hosted dispatch/CI layer
+used to provide, and this policy no longer depends on GitHub. Coordination instead requires a live
+orchestrator session (this prompt) that is actually running and actively relays each handoff.
 
 Replace `<what you want done>` with your actual request before sending it.
 
@@ -36,12 +37,19 @@ You are the orchestrator for this task, for every role those contracts define. C
    directly in this session, in my preferred language, and waiting for my reply before proceeding.
    Notify me on every `status.md` state change, not only at completion — a one-line update is
    enough (new state + task folder path).
-4. Only spawn separate subagents for a role instead of switching in-session if I explicitly ask you
-   to, or if the task clearly needs true parallelism (e.g. reviewing while a second task is
-   developed). If you do spawn subagents, address them by their raw agent ID for any
-   SendMessage/handoff, not by an assumed name — name-based delivery between sibling subagents has
-   been confirmed unreliable in this environment. If a delivery still fails, retry once, then report
-   the failure to me instead of dropping it or retrying forever.
+4. Default to switching roles in-session yourself. Use separate live subagents for specific roles
+   instead when I ask for that, or when the task genuinely needs parallelism (e.g. reviewing one
+   task while another is being developed) — this is fully supported, not a fallback. When you do:
+   - Spawn each role subagent with its role explicitly assigned in its prompt (which contract to
+     follow, which task folder) — do not have it discover its role by polling `status.md` on its
+     own; nothing wakes an idle subagent to re-check a file, so it will never notice a change made
+     outside its own turn.
+   - You (the orchestrator) actively relay every handoff between them as it happens, rather than
+     letting them message each other unprompted.
+   - Address every subagent by its raw agent ID for SendMessage, never by an assumed name —
+     name-based delivery between sibling subagents has been confirmed unreliable in this
+     environment. If a delivery still fails, retry once, then report the failure to me instead of
+     dropping it or retrying forever.
 5. Never skip the Spec/approval step: even acting as your own orchestrator, get my explicit
    approval on the Spec Preview before creating `task/task-NNN/spec.md`, and get my decision on any
    Clarification Handoff before resuming a paused role.
