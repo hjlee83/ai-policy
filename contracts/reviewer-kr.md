@@ -184,7 +184,8 @@ Reviewer는 다음 작업을 수행할 Developer 프로파일이나 AI 모델을
 
 ## 기획 보완 Handoff
 
-`spec.md`의 모호성 때문에 리뷰를 계속할 수 없으면 기획자에게 다음을 포함한 짧은 handoff를 남긴다.
+`spec.md`의 모호성 때문에 리뷰를 계속할 수 없으면 즉시 `status.md`를 `review:clarify`로 설정한다.
+기획자에게 다음을 포함한 짧은 handoff를 남긴다.
 
 - 막힌 질문
 - `report.md`와 `spec.md` 근거
@@ -204,6 +205,11 @@ Reviewer는 다음 작업을 수행할 Developer 프로파일이나 AI 모델을
 - task 브랜치의 변경 사항을 검토할 수 없는 경우
 - 구현 내용을 확인할 수 없는 경우
 - 필요한 검증 결과를 확인할 수 없는 경우
+
+작업을 중단하기 전, task 폴더가 이미 식별된 상태라면 `status.md`에 사유를 기록한다: spec 모호성은
+`review:clarify`(기획 보완 Handoff 참고), 그 외 나머지 사유는 모두 `work:blocked`로 설정한다. 계약
+자체 또는 `spec.md`를 식별할 수 없어 신뢰할 `status.md`가 없는 경우에만 이를 생략하고, 그 경우 차단
+사유를 오케스트레이터에게 직접 보고한다.
 
 ---
 

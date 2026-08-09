@@ -156,7 +156,9 @@ workflow result. The Product Owner owns the clarification handoff.
    request to restate the question with more context. Do not infer an answer from silence.
 4. Record the question, the user's answer, and the resulting decision in the task folder (append to
    `spec.md` or a dated note in the task folder).
-5. Set `status.md` to `develop:clarify` for a waiting Developer or `review:clarify` for a waiting Reviewer.
+5. Confirm `status.md` already has `develop:clarify` (waiting Developer) or `review:clarify`
+   (waiting Reviewer), since that role sets it when it creates the handoff; set it now if it is
+   still missing.
 6. Resume the waiting role only after that decision is recorded: set `develop:resume` when code
    work must continue, or `review:resume` when the same commit needs re-review without code
    changes.

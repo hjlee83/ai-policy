@@ -192,10 +192,11 @@ Workflow routing is the responsibility of the orchestration system.
 
 ## Clarification Handoff
 
-If review cannot proceed because `spec.md` is ambiguous, provide a concise Product Owner
-handoff with the blocking question, `report.md` and `spec.md` evidence, the affected criterion, and safe options.
-Do not convert an ambiguity into a speculative REQUIRED finding. Wait for the recorded decision in
-the task folder or approved revised `spec.md`, then review the applicable new commit.
+If review cannot proceed because `spec.md` is ambiguous, set `status.md` to `review:clarify`
+immediately. Provide a concise Product Owner handoff with the blocking question, `report.md` and
+`spec.md` evidence, the affected criterion, and safe options. Do not convert an ambiguity into a
+speculative REQUIRED finding. Wait for the recorded decision in the task folder or approved revised
+`spec.md`, then review the applicable new commit.
 
 ---
 
@@ -208,6 +209,12 @@ Stop immediately when:
 - the task branch changes cannot be reviewed;
 - implementation evidence is unavailable;
 - required verification cannot be confirmed.
+
+Before stopping, record the reason in `status.md` if the task folder is already identified: set
+`review:clarify` for spec ambiguity (see Clarification Handoff), or `work:blocked` for every other
+condition in this list. Only skip this when the contract or `spec.md` itself cannot be identified,
+since there is then no reliable `status.md` to write; report the blocker to the orchestrator
+directly in that case.
 
 ---
 

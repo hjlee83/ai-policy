@@ -165,10 +165,10 @@ to `review:ready` and preserve its `Review-Round` value when present.
 ## Clarification Handoff
 
 If work cannot continue because `spec.md` is ambiguous, do not guess or ask the user directly.
-Create a concise handoff for the Product Owner containing the blocking question, the relevant
-implementation evidence, the affected Acceptance Criterion or Verification Gate, and the options
-that are technically safe. Wait for a recorded decision in the task folder or an approved revised
-`spec.md` before resuming.
+Set `status.md` to `develop:clarify` immediately. Create a concise handoff for the Product Owner
+containing the blocking question, the relevant implementation evidence, the affected Acceptance
+Criterion or Verification Gate, and the options that are technically safe. Wait for a recorded
+decision in the task folder or an approved revised `spec.md` before resuming.
 
 ---
 
@@ -182,6 +182,12 @@ Stop immediately when:
 - implementation requires guessing;
 - the requested work exceeds the approved scope;
 - an ADR is required but unavailable.
+
+Before stopping, record the reason in `status.md` if the task folder is already identified: set
+`develop:clarify` for spec ambiguity (see Clarification Handoff), or `work:blocked` for every other
+condition in this list. Only skip this when the contract or the task folder itself cannot be
+identified, since there is then no `status.md` to write; report the blocker to the orchestrator
+directly in that case.
 
 ---
 

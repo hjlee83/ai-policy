@@ -156,7 +156,9 @@ Developer 또는 Reviewer가 승인된 작업의 모호성 때문에 중단한 �
 
 3. `1` 또는 `2`는 선택으로, `3 <답변>`은 자유 입력으로, `4`는 맥락을 보강한 재질문 요청으로 처리한다. 무응답을 답변으로 추측하지 않는다.
 4. 질문, 사용자 답변, 확정된 결정을 task 폴더에 기록한다(`spec.md`에 덧붙이거나 task 폴더에 날짜가 표시된 메모로 남긴다).
-5. Developer 대기에는 `status.md`를 `develop:clarify`로, Reviewer 대기에는 `review:clarify`로 갱신한다.
+5. `status.md`에 이미 `develop:clarify`(Developer 대기) 또는 `review:clarify`(Reviewer 대기)가
+   설정되어 있는지 확인한다. handoff를 만든 역할이 그때 직접 설정하므로, 아직 반영되지 않았다면
+   지금 설정한다.
 6. 결정이 기록된 뒤에만 작업을 재개한다. 코드 작업이 계속돼야 하면 `develop:resume`, 코드 변경 없이 같은 커밋을 재리뷰해야 하면 `review:resume`으로 갱신한다.
 7. 기록된 결정과 결과 상태를 오케스트레이터에게 보고한다.
 
