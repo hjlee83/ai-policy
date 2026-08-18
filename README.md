@@ -106,3 +106,4 @@ Compatibility is listed only after an AI system has been tested against the cont
 | ChatGPT | Not yet verified |
 | Claude | Not yet verified |
 | Gemini | Not yet verified |
+n원격에서
