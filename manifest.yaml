@@ -1,0 +1,17 @@
+version: 5
+architecture: ai-engineering-os-v5
+contracts:
+  orchestrator: contracts/orchestrator.md
+  product_owner: contracts/product-owner.md
+  developer: contracts/developer.md
+  tester: contracts/tester.md
+  reviewer: contracts/reviewer.md
+  merger: contracts/merger.md
+  deployer: contracts/deployer.md
+principles:
+  - roles_are_model_independent
+  - github_task_artifacts_are_durable_sot
+  - orchestrator_owns_workflow_state
+  - workers_return_outcomes_not_next_states
+  - escalation_is_bounded
+  - context_is_minimized_but_verifiable
